@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
-enum Allignement {
+enum Allignment {
 	INIT,
 	LEFT,
 	CENTER,
@@ -16,12 +16,14 @@ private:
 	unsigned int maxTableCols = 0;
 	bool autoFit = false;
 	unsigned int visibleCellSymbols = 0;
-	Allignement initialAllignement = Allignement::INIT;
+	Allignment initialAllignment = Allignment::INIT;
 	bool clearConsoleAfterCommand = false;
+	void assignValueToProperty(char* propertyName, char* propertyValue);
 public:
 	Config() = delete;
 	Config(char* fileName);
 	void readConfigFromFileName(char* fileName);
 	void readConfigFromFile(std::ifstream& ifs);
+	
 };
 
