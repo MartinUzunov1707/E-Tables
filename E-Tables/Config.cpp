@@ -6,32 +6,14 @@ namespace Constants {
 	const int ZERO_ASCII = '0';
 }
 
-struct ConfigProperties {
-	bool initialTableRowsFlag = 0;
-	bool initialTableColsFlag = 0;
-	bool maxTableRowsFlag = 0;
-	bool maxTableColsFlag = 0;
-	bool autoFitFlag = 0;
-	bool visibleCellSymbolsFlag = 0;
-	bool initialAllignmentFlag = 0;
-	bool clearConsoleAfterCommandFlag = 0;
-
-	bool validateConfigProperties() {
-		return initialTableRowsFlag && initialTableColsFlag
-			&& maxTableRowsFlag && maxTableColsFlag
-			&& autoFitFlag && visibleCellSymbolsFlag
-			&& initialAllignmentFlag && clearConsoleAfterCommandFlag;
-	}
-};
-
 Allignment getAlignmentByString(char* value) {
-	if (value == "left") {
+	if (strcmp(value,"left")==0) {
 		return Allignment::LEFT;
 	}
-	else if (value == "right") {
+	else if (strcmp(value, "right") == 0) {
 		return Allignment::RIGHT;
 	}
-	else if (value == "center") {
+	else if (strcmp(value, "center") == 0) {
 		return Allignment::CENTER;
 	}
 	else {
@@ -39,12 +21,12 @@ Allignment getAlignmentByString(char* value) {
 	}
 }
 
-Config::Config(char* fileName)
+Config::Config(const char* fileName)
 {
 	readConfigFromFileName(fileName);
 }
 
-void Config::readConfigFromFileName(char* fileName)
+void Config::readConfigFromFileName(const char* fileName)
 {
 	std::ifstream ifs(fileName,std::ifstream::in);
 	readConfigFromFile(ifs);
@@ -67,7 +49,7 @@ void getPropertyNameFromLine(char* line, char* nameDestination, char* valueDesti
 	valueDestination[a] = '\0';
 }
 
-bool tryConvertToInt(char* value, int tryResult) {
+bool tryConvertToInt(char* value, int& tryResult) {
 	int result = 0;
 	int length = 0;
 	while (value[length] != '\0') {
@@ -88,7 +70,7 @@ bool tryConvertToInt(char* value, int tryResult) {
 
 void Config::assignValueToProperty(char* propertyName, char* propertyValue,ConfigProperties& cfp)
 {
-	if (propertyName == "initialTableRows") {
+	if (strcmp(propertyName,"initialTableRows") == 0) {
 		int value = 0;
 		if (tryConvertToInt(propertyValue, value)) {
 			this->initialTableRows = value;
@@ -102,7 +84,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 		}
 		cfp.initialTableRowsFlag = true;
 	}
-	else if (propertyName == "initialTableCols") {
+	else if (strcmp(propertyName, "initialTableCols") == 0) {
 		int value = 0;
 		if (tryConvertToInt(propertyValue, value)) {
 			this->initialTableCols = value;
@@ -116,7 +98,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 		}
 		cfp.initialTableColsFlag = true;
 	}
-	else if (propertyName == "maxTableRows") {
+	else if (strcmp(propertyName, "maxTableRows") == 0) {
 		int value = 0;
 		if (tryConvertToInt(propertyValue, value)) {
 			this->maxTableRows = value;
@@ -130,7 +112,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 		}
 		cfp.maxTableRowsFlag = true;
 	}
-	else if (propertyName == "maxTableCols") {
+	else if (strcmp(propertyName, "maxTableCols") == 0) {
 		int value = 0;
 		if (tryConvertToInt(propertyValue, value)) {
 			this->maxTableCols = value;
@@ -144,12 +126,12 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 		}
 		cfp.maxTableColsFlag = true;
 	}
-	else if (propertyName == "autoFit") {
+	else if (strcmp(propertyName, "autoFit") == 0) {
 
-		if (propertyValue == "true") {
+		if (strcmp(propertyValue,"true") == 0) {
 			this->autoFit = true;
 		}
-		else if (propertyValue == "false") {
+		else if (strcmp(propertyValue, "false") == 0) {
 			this->autoFit = false;
 		}
 		else {
@@ -162,7 +144,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 		
 		cfp.autoFitFlag = true;
 	}
-	else if (propertyName == "visibleCellSymbols") {
+	else if (strcmp(propertyName, "visibleCellSymbols") == 0) {
 		int value = 0;
 		if (tryConvertToInt(propertyValue, value)) {
 			this->visibleCellSymbols = value;
@@ -176,7 +158,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 		}
 		cfp.visibleCellSymbolsFlag = true;
 	}
-	else if (propertyName == "initialAllignment") {
+	else if (strcmp(propertyName, "initialAllignment") == 0) {
 		Allignment allignment = getAlignmentByString(propertyValue);
 		if (allignment == Allignment::INIT) {
 			const char* message = "ABORTING! ";
@@ -185,13 +167,14 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 				.append(" - ").append("Invalid value!");
 			throw std::invalid_argument(exceptionMessage.getString());
 		}
+		this->initialAllignment = allignment;
 		cfp.initialAllignmentFlag = true;
 	} 
-	else if (propertyName == "clearConsoleAfterCommand") {
-		if (propertyValue == "true") {
+	else if (strcmp(propertyName, "clearConsoleAfterCommand") == 0) {
+		if (strcmp(propertyValue, "true") == 0) {
 			this->clearConsoleAfterCommand = true;
 		}
-		else if (propertyValue == "false") {
+		else if (strcmp(propertyValue, "false") == 0) {
 			this->clearConsoleAfterCommand = false;
 		}
 		else {
@@ -201,6 +184,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 				.append(" - ").append("Invalid value!");
 			throw std::invalid_argument(exceptionMessage.getString());
 		}
+		cfp.clearConsoleAfterCommandFlag = true;
 	}
 	else {
 		const char* message = "ABORTING! ";

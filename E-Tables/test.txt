@@ -1,1 +1,8 @@
-initialTableRows:101010
+initialTableRows:4
+initialTableCols:4
+maxTableRows:6
+maxTableCols:6
+autoFit:false
+visibleCellSymbols:4
+initialAllignment:left
+clearConsoleAfterCommand:true
