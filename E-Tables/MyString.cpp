@@ -28,12 +28,14 @@ int getLength(const char* data) {
 	while (data[i] != '\0') {
 		i++;
 	}
+	i++;
 	return i;
 }
 
 MyString::MyString(const char* data)
 {
 	this->length = getLength(data);
+	this->data = new char[this->length];
 	for (int i = 0; i < this->length; i++) {
 		this->data[i] = data[i];
 	}
@@ -64,7 +66,7 @@ MyString& MyString::operator=(const MyString& other)
 	return *this;
 }
 
-void MyString::concat(char* other, int length)
+MyString& MyString::append(char* other, int length)
 {
 	char* temp = new char[length + this->length - 1];
 	int i = 0;
@@ -81,13 +83,24 @@ void MyString::concat(char* other, int length)
 	}
 
 	free();
+	this->length += length - 1;
 	this->data = temp;
+
+	return *this;
 }
 
-void MyString::concat(const MyString& other)
+MyString& MyString::append(const char* other)
 {
-	this->concat(other.data, other.length);
+	int length = getLength(other);
+	this->append((char*)other, length);
+	return *this;
 }
+
+//MyString& MyString::append(const MyString& other)
+//{
+//	this->append(other.data, other.length);
+//return *this;
+//}
 
 char* MyString::getString() const
 {

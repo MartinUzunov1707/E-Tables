@@ -44,10 +44,18 @@ int getLengths(const char* data) {
 
 int main()
 {
-	/*char* data = new char[5] {"data"};
-	char* data2 = new char[5] {"brat"};
-	MyString str(data, 5);
-	str.concat(data2,5);*/
-	
+	std::ifstream ifs("test.txt");
+	char propertyName[1024];
+	char propertyValue[1024];
+	char buffer[1024];
+
+	if (ifs.is_open()) {
+		ifs.getline(buffer,1024);
+	}
+	getPropertyNameFromLines(buffer, propertyName, propertyValue);
+	MyString s("ABORTING! ");
+	s.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+		.append(" - ").append("Property does not exist!");
+	std::cout << s.getString() << std::endl;
 }
 

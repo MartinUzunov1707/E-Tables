@@ -111,7 +111,11 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue)
 		}
 		else {
 			//TODO
-			//MyString exceptionMessage("ABORTING!")
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*) propertyName).append(":").append((const char*) propertyValue)
+				.append(" - ").append("Property does not exist!");
+			throw std::invalid_argument(exceptionMessage.getString());
 		}
 		
 		cfp.autoFitFlag = true;

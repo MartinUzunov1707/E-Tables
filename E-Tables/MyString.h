@@ -14,8 +14,10 @@ public:
 	MyString(const MyString& other);
 	~MyString();
 	MyString& operator=(const MyString& other);
-	void concat(char* other, int length);
-	void concat(const MyString& other);
+	MyString& append(const char* other);
+	MyString& append(char* other, int length);
+	
+	//MyString & append(const MyString & other);
 	char* getString() const;
 };
 
