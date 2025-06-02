@@ -7,6 +7,8 @@ enum Allignment {
 	RIGHT
 };
 
+
+
 class Config
 {
 private:
@@ -18,7 +20,7 @@ private:
 	unsigned int visibleCellSymbols = 0;
 	Allignment initialAllignment = Allignment::INIT;
 	bool clearConsoleAfterCommand = false;
-	void assignValueToProperty(char* propertyName, char* propertyValue);
+	void assignValueToProperty(char* propertyName, char* propertyValue, ConfigProperties& cfp);
 public:
 	Config() = delete;
 	Config(char* fileName);

@@ -5,6 +5,7 @@ namespace Constants {
 	const int BUFFER_SIZE = 1024;
 	const int ZERO_ASCII = '0';
 }
+
 struct ConfigProperties {
 	bool initialTableRowsFlag = 0;
 	bool initialTableColsFlag = 0;
@@ -21,8 +22,6 @@ struct ConfigProperties {
 			&& autoFitFlag && visibleCellSymbolsFlag
 			&& initialAllignmentFlag && clearConsoleAfterCommandFlag;
 	}
-
-	
 };
 
 Allignment getAlignmentByString(char* value) {
@@ -68,7 +67,7 @@ void getPropertyNameFromLine(char* line, char* nameDestination, char* valueDesti
 	valueDestination[a] = '\0';
 }
 
-int convertToInt(char* value) {
+bool tryConvertToInt(char* value, int tryResult) {
 	int result = 0;
 	int length = 0;
 	while (value[length] != '\0') {
@@ -76,33 +75,77 @@ int convertToInt(char* value) {
 	}
 	int reverseIndex = length - 1;
 	for (int i = 0; i < length;i++) {
+		if (value[i] < '0' || value[i] > '9') {
+			return false;
+		}
 		result += (value[i] - '0') * pow(10, reverseIndex);
 		reverseIndex--;
 	}
 
-	return result;
+	tryResult = result;
+	return true;
 }
 
-void Config::assignValueToProperty(char* propertyName, char* propertyValue)
+void Config::assignValueToProperty(char* propertyName, char* propertyValue,ConfigProperties& cfp)
 {
-	ConfigProperties cfp;
 	if (propertyName == "initialTableRows") {
-		this->initialTableRows = convertToInt(propertyValue);
+		int value = 0;
+		if (tryConvertToInt(propertyValue, value)) {
+			this->initialTableRows = value;
+		}
+		else {
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+				.append(" - ").append("Invalid value!");
+			throw std::invalid_argument(exceptionMessage.getString());
+		}
 		cfp.initialTableRowsFlag = true;
 	}
 	else if (propertyName == "initialTableCols") {
-		this->initialTableCols = convertToInt(propertyValue);
+		int value = 0;
+		if (tryConvertToInt(propertyValue, value)) {
+			this->initialTableCols = value;
+		}
+		else {
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+				.append(" - ").append("Invalid value!");
+			throw std::invalid_argument(exceptionMessage.getString());
+		}
 		cfp.initialTableColsFlag = true;
 	}
 	else if (propertyName == "maxTableRows") {
-		this->maxTableRows = convertToInt(propertyValue);
+		int value = 0;
+		if (tryConvertToInt(propertyValue, value)) {
+			this->maxTableRows = value;
+		}
+		else {
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+				.append(" - ").append("Invalid value!");
+			throw std::invalid_argument(exceptionMessage.getString());
+		}
 		cfp.maxTableRowsFlag = true;
 	}
 	else if (propertyName == "maxTableCols") {
-		this->maxTableCols = convertToInt(propertyValue);
+		int value = 0;
+		if (tryConvertToInt(propertyValue, value)) {
+			this->maxTableCols = value;
+		}
+		else {
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+				.append(" - ").append("Invalid value!");
+			throw std::invalid_argument(exceptionMessage.getString());
+		}
 		cfp.maxTableColsFlag = true;
 	}
 	else if (propertyName == "autoFit") {
+
 		if (propertyValue == "true") {
 			this->autoFit = true;
 		}
@@ -110,28 +153,61 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue)
 			this->autoFit = false;
 		}
 		else {
-			//TODO
 			const char* message = "ABORTING! ";
 			MyString exceptionMessage(message);
 			exceptionMessage.append((const char*) propertyName).append(":").append((const char*) propertyValue)
-				.append(" - ").append("Property does not exist!");
+				.append(" - ").append("Invalid value!");
 			throw std::invalid_argument(exceptionMessage.getString());
 		}
 		
 		cfp.autoFitFlag = true;
 	}
 	else if (propertyName == "visibleCellSymbols") {
-		this->visibleCellSymbols = convertToInt(propertyValue);
+		int value = 0;
+		if (tryConvertToInt(propertyValue, value)) {
+			this->visibleCellSymbols = value;
+		}
+		else {
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+				.append(" - ").append("Invalid value!");
+			throw std::invalid_argument(exceptionMessage.getString());
+		}
 		cfp.visibleCellSymbolsFlag = true;
 	}
 	else if (propertyName == "initialAllignment") {
-		this->initialAllignment = getAlignmentByString(propertyValue);
+		Allignment allignment = getAlignmentByString(propertyValue);
+		if (allignment == Allignment::INIT) {
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+				.append(" - ").append("Invalid value!");
+			throw std::invalid_argument(exceptionMessage.getString());
+		}
 		cfp.initialAllignmentFlag = true;
 	} 
 	else if (propertyName == "clearConsoleAfterCommand") {
-		//
-		this->clearConsoleAfterCommand = convertToInt(propertyValue);
-		cfp.clearConsoleAfterCommandFlag = true;
+		if (propertyValue == "true") {
+			this->clearConsoleAfterCommand = true;
+		}
+		else if (propertyValue == "false") {
+			this->clearConsoleAfterCommand = false;
+		}
+		else {
+			const char* message = "ABORTING! ";
+			MyString exceptionMessage(message);
+			exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+				.append(" - ").append("Invalid value!");
+			throw std::invalid_argument(exceptionMessage.getString());
+		}
+	}
+	else {
+		const char* message = "ABORTING! ";
+		MyString exceptionMessage(message);
+		exceptionMessage.append((const char*)propertyName).append(":").append((const char*)propertyValue)
+			.append(" - ").append("Property does not exist!");
+		throw std::invalid_argument(exceptionMessage.getString());
 	}
 }
 
@@ -145,7 +221,10 @@ void Config::readConfigFromFile(std::ifstream& ifs)
 			char propertyName[Constants::BUFFER_SIZE];
 			char propertyValue[Constants::BUFFER_SIZE];
 			getPropertyNameFromLine(buffer, propertyName, propertyValue);
-			assignValueToProperty(propertyName, propertyValue);
+			assignValueToProperty(propertyName, propertyValue,cfp);
+		}
+		if (!cfp.validateConfigProperties()) {
+			throw std::invalid_argument("One or more configuration properties are missing!");
 		}
 	}
 }
