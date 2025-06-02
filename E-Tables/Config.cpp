@@ -1,4 +1,5 @@
 #include "Config.h"
+#include "MyString.h"
 
 namespace Constants {
 	const int BUFFER_SIZE = 1024;
@@ -109,7 +110,8 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue)
 			this->autoFit = false;
 		}
 		else {
-			throw std::invalid_argument("ABORTING! " + propertyName + )
+			//TODO
+			//MyString exceptionMessage("ABORTING!")
 		}
 		
 		cfp.autoFitFlag = true;

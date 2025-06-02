@@ -1,8 +1,7 @@
 // E-Tables.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <fstream>
-#include <iostream>;
+#include <iostream>
+#include "MyString.h"
 
 int convertToInts(char* value) {
 	int result = 0;
@@ -35,18 +34,20 @@ void getPropertyNameFromLines(char* line, char* nameDestination, char* valueDest
 	}
 	valueDestination[a] = '\0';
 }
+int getLengths(const char* data) {
+	int i = 0;
+	while (data[i] != '\0') {
+		i++;
+	}
+	return i;
+}
 
 int main()
 {
-	std::ifstream ifs("test.txt");
-	if (ifs.is_open()){
-		char buffer[1024];
-		char propertyName[1024];
-		char propertyValue[1024];
-		ifs.getline(buffer, 1024);
-		getPropertyNameFromLines(buffer, propertyName, propertyValue);
-		std::cout << convertToInts(propertyValue) << std::endl;
-	}
+	/*char* data = new char[5] {"data"};
+	char* data2 = new char[5] {"brat"};
+	MyString str(data, 5);
+	str.concat(data2,5);*/
 	
 }
 
