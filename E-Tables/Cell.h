@@ -1,10 +1,11 @@
 #pragma once
 class Cell
 {
-private:
+protected:
 	char xValue;
 	int yValue;
 public:
 	virtual ~Cell() = default;
+	virtual double evaluate() = 0;
 };
 

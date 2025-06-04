@@ -30,6 +30,9 @@
     <ClCompile Include="StringCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BooleanCell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StringCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BooleanCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

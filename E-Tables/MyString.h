@@ -17,7 +17,7 @@ public:
 	MyString& append(const char* other);
 	MyString& append(char other);
 	MyString& append(char* other, int length);
-	MyString substr(int startIndex, int length);
+	MyString substr(int startIndex, int length) const;
 	
 	//MyString & append(const MyString & other);
 	char* getString() const;

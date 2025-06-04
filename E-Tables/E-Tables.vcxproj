@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BooleanCell.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="E-Tables.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="StringCell.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BooleanCell.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="MyString.h" />

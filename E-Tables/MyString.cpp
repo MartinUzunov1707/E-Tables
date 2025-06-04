@@ -90,7 +90,7 @@ MyString& MyString::append(char* other, int length)
 	return *this;
 }
 
-MyString MyString::substr(int startIndex, int length)
+MyString MyString::substr(int startIndex, int length) const
 {
 	char* temp = new char[length + 1];
 	if (startIndex < 0 || startIndex >= this->length) {
