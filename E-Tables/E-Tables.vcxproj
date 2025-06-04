@@ -131,11 +131,13 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="E-Tables.cpp" />
     <ClCompile Include="MyString.cpp" />
+    <ClCompile Include="StringCell.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="MyString.h" />
+    <ClInclude Include="StringCell.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

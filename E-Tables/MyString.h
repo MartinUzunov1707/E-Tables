@@ -15,7 +15,9 @@ public:
 	~MyString();
 	MyString& operator=(const MyString& other);
 	MyString& append(const char* other);
+	MyString& append(char other);
 	MyString& append(char* other, int length);
+	MyString substr(int startIndex, int length);
 	
 	//MyString & append(const MyString & other);
 	char* getString() const;

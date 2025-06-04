@@ -2,17 +2,15 @@
 #include <fstream>
 #include <iostream>
 #include "Config.h"
+#include "MyString.h"
 
 
 
 int main()
 {
-	try {
-		Config cfg("test.txt");
-	}
-	catch (std::invalid_argument exc) {
-		std::cout << exc.what() << std::endl;
-	}
+	MyString str("012345");
+
+	std::cout << str.substr(1, 3).getString();
 	
 }
 

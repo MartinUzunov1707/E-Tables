@@ -1,4 +1,5 @@
 #include "MyString.h"
+#include <stdexcept>
 
 void MyString::copyDynamicMemory(const MyString& other)
 {
@@ -89,10 +90,34 @@ MyString& MyString::append(char* other, int length)
 	return *this;
 }
 
+MyString MyString::substr(int startIndex, int length)
+{
+	char* temp = new char[length + 1];
+	if (startIndex < 0 || startIndex >= this->length) {
+		throw std::invalid_argument("startIndex out of bounds!");
+	}
+	else if (length == 0 || length >= this->length) {
+		throw std::invalid_argument("Length cannot be 0 or bigger than current length!");
+	}
+	int i = 0;
+	while(i < length) {
+		temp[i] = this->data[i + startIndex];
+		i++;
+	}
+	temp[i] = '\0';
+	return MyString(temp);
+}
+
 MyString& MyString::append(const char* other)
 {
 	int length = getLength(other);
 	this->append((char*)other, length);
+	return *this;
+}
+
+MyString& MyString::append(char other)
+{
+	this->append(&other, 1);
 	return *this;
 }
 
