@@ -9,7 +9,7 @@ class StringCell :
 private:
    MyString value;
 public:
-    StringCell(char x, int y, MyString value);
+    StringCell(int x, char y, MyString value);
     void setValue(MyString value);
     double evaluate() override;
 };

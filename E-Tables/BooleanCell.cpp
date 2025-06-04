@@ -1,6 +1,6 @@
 #include "BooleanCell.h"
 
-BooleanCell::BooleanCell(char x, int y, bool value)
+BooleanCell::BooleanCell(int x, char y, bool value)
 {
 	this->xValue = x;
 	this->yValue = y;

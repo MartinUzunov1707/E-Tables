@@ -7,7 +7,7 @@ class BooleanCell :
 private:
     bool value;
 public:
-    BooleanCell(char x, int y, bool value);
+    BooleanCell(int x, char y, bool value);
     void setValue(bool value);
     double evaluate() override;
 };

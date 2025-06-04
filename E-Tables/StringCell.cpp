@@ -1,6 +1,6 @@
 #include "StringCell.h"
 
-StringCell::StringCell(char x, int y, MyString value)
+StringCell::StringCell(int x, char y, MyString value)
 {
 	this->xValue = x;
 	this->yValue = y;

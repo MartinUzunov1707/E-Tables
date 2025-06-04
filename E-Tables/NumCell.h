@@ -6,7 +6,7 @@ class NumCell :
 private:
     double value;
 public:
-    NumCell(char x, int y, double value);
+    NumCell(int x, char y, double value);
     void setValue(double value);
     double evaluate() override;
 };

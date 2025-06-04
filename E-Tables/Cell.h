@@ -2,8 +2,8 @@
 class Cell
 {
 protected:
-	char xValue;
-	int yValue;
+	int xValue;
+	char yValue;
 public:
 	virtual ~Cell() = default;
 	virtual double evaluate() = 0;

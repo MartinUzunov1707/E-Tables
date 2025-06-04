@@ -1,6 +1,6 @@
 #include "NumCell.h"
 
-NumCell::NumCell(char x, int y, double value)
+NumCell::NumCell(int x, char y, double value)
 {
 	this->xValue = x;
 	this->yValue = y;
