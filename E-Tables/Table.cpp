@@ -2,6 +2,8 @@
 #include "BooleanCell.h"
 #include "StringCell.h"
 #include "NumCell.h"
+#include "NullCell.h"
+#include <iostream>
 
 
 void assignValuesFromRow(const char* row, int rowIndex,Cell*** table) {
@@ -43,7 +45,12 @@ void assignValuesFromRow(const char* row, int rowIndex,Cell*** table) {
 			i--;
 		}
 		else if (row[i] == '|') {
-			table[rowIndex][currentCol] = currentCell;
+			if (currentCell == nullptr) {
+				table[rowIndex][currentCol] = new NullCell(rowIndex, currentCol + 'A');
+			}
+			else{
+				table[rowIndex][currentCol] = currentCell;
+			}
 			currentCell = nullptr;
 			currentCol++;
 		}
@@ -74,7 +81,7 @@ void Table::readTableFromFile(MyString fileName)
 	this->currentMaxRow = maxRowInt;
 	/*this->table = new Cell*[this->currentMaxRow];*/
 
-	table = new Cell * *[currentMaxRow];
+	table = new Cell * *[currentMaxRow] {0};
 	for (int a = 0; a < currentMaxRow;a++) {
 		table[a] = new Cell * [currentMaxCol];
 	}
@@ -87,12 +94,13 @@ void Table::readTableFromFile(MyString fileName)
 
 void Table::writeTableToFile(MyString fileName) const
 {
-	std::ofstream ofs(fileName.getString());
+	std::ofstream ofs(fileName.getString()); 
 	ofs << this->currentMaxRow << ';' << this->currentMaxCol << std::endl;
 	for (int i = 0; i < this->currentMaxRow; i++) {
 		for (int a = 0; a < this->currentMaxCol; a++) {
-			ofs << this->table[i][a] << '|';
+			ofs << this->table[i][a]->print() << '|';
 		}
+		ofs << std::endl;
 	}
 }
 

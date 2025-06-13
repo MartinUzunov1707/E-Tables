@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 static class Utils {
 public:
 	static const int BUFFER_SIZE = 1024;
@@ -22,6 +23,24 @@ public:
 
 		tryResult = result;
 		return true;
+	}
+
+	static char* parseIntToString(int num) {
+		char buffer[BUFFER_SIZE];
+		int digitCounter = 0;
+		int numCopy = num;
+		while (num != 0) {
+			num /= 10;
+			digitCounter++;
+		}
+		int lastIndex = digitCounter;
+		while (numCopy != 0) {
+			buffer[digitCounter-1] = numCopy % 10 + '0';
+			numCopy /= 10;
+			digitCounter--;
+		}
+		buffer[lastIndex] = '\0';
+		return buffer;
 	}
 
 	static void splitValuesByDelimiter(char* line, char* lhs, char* rhs, char delimiter) {

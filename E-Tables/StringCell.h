@@ -12,5 +12,6 @@ public:
     StringCell(int x, char y, MyString value);
     void setValue(MyString value);
     double evaluate() override;
+    const char* print() const override;
 };
 

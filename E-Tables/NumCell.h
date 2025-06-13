@@ -9,5 +9,6 @@ public:
     NumCell(int x, char y, double value);
     void setValue(double value);
     double evaluate() override;
+    const char* print() const override;
 };
 

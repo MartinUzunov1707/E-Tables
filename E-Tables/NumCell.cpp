@@ -1,4 +1,5 @@
 #include "NumCell.h"
+#include "Utils.h"
 
 NumCell::NumCell(int x, char y, double value)
 {
@@ -15,5 +16,10 @@ void NumCell::setValue(double value)
 double NumCell::evaluate()
 {
 	return value;
+}
+
+const char* NumCell::print() const
+{
+	return Utils::parseIntToString(this->value);
 }
 

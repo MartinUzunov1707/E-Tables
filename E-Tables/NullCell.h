@@ -1,14 +1,11 @@
 #pragma once
 #include "Cell.h"
 
-class BooleanCell :
+class NullCell :
     public Cell
 {
-private:
-    bool value;
 public:
-    BooleanCell(int x, char y, bool value);
-    void setValue(bool value);
+    NullCell(int x, char y);
     double evaluate() override;
     const char* print() const override;
 };

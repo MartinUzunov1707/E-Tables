@@ -17,3 +17,14 @@ double BooleanCell::evaluate()
 	return value;
 }
 
+const char* BooleanCell::print() const
+{
+	if (this->value) {
+		return "t";
+	}
+	else {
+		return "f";
+	}
+}
+
+
