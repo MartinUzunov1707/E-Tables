@@ -1,5 +1,7 @@
 #pragma once
 #include <fstream>
+#include "MyString.h"
+#include "Utils.h"
 
 struct ConfigProperties {
 	bool initialTableRowsFlag = 0;

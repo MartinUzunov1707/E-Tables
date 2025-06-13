@@ -144,6 +144,7 @@
     <ClInclude Include="NumCell.h" />
     <ClInclude Include="StringCell.h" />
     <ClInclude Include="Table.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

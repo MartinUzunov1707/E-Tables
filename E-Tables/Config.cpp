@@ -1,10 +1,5 @@
 #include "Config.h"
-#include "MyString.h"
 
-namespace Constants {
-	const int BUFFER_SIZE = 1024;
-	const int ZERO_ASCII = '0';
-}
 
 Allignment getAlignmentByString(char* value) {
 	if (strcmp(value,"left")==0) {
@@ -32,47 +27,14 @@ void Config::readConfigFromFileName(const char* fileName)
 	readConfigFromFile(ifs);
 }
 
-void getPropertyNameFromLine(char* line, char* nameDestination, char* valueDestination) {
-	int i = 0;
-	int a = 0;
-	while (line[i] != ':') {
-		nameDestination[i] = line[i];
-		i++;
-	}
-	nameDestination[i] = '\0';
-	i++; // skips delimeter
-	while (line[i] != '\0') {
-		valueDestination[a] = line[i];
-		i++;
-		a++;
-	}
-	valueDestination[a] = '\0';
-}
 
-bool tryConvertToInt(char* value, int& tryResult) {
-	int result = 0;
-	int length = 0;
-	while (value[length] != '\0') {
-		length++;
-	}
-	int reverseIndex = length - 1;
-	for (int i = 0; i < length;i++) {
-		if (value[i] < '0' || value[i] > '9') {
-			return false;
-		}
-		result += (value[i] - '0') * pow(10, reverseIndex);
-		reverseIndex--;
-	}
 
-	tryResult = result;
-	return true;
-}
 
 void Config::assignValueToProperty(char* propertyName, char* propertyValue,ConfigProperties& cfp)
 {
 	if (strcmp(propertyName,"initialTableRows") == 0) {
 		int value = 0;
-		if (tryConvertToInt(propertyValue, value)) {
+		if (Utils::tryConvertToInt(propertyValue, value)) {
 			this->initialTableRows = value;
 		}
 		else {
@@ -86,7 +48,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 	}
 	else if (strcmp(propertyName, "initialTableCols") == 0) {
 		int value = 0;
-		if (tryConvertToInt(propertyValue, value)) {
+		if (Utils::tryConvertToInt(propertyValue, value)) {
 			this->initialTableCols = value;
 		}
 		else {
@@ -100,7 +62,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 	}
 	else if (strcmp(propertyName, "maxTableRows") == 0) {
 		int value = 0;
-		if (tryConvertToInt(propertyValue, value)) {
+		if (Utils::tryConvertToInt(propertyValue, value)) {
 			this->maxTableRows = value;
 		}
 		else {
@@ -114,7 +76,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 	}
 	else if (strcmp(propertyName, "maxTableCols") == 0) {
 		int value = 0;
-		if (tryConvertToInt(propertyValue, value)) {
+		if (Utils::tryConvertToInt(propertyValue, value)) {
 			this->maxTableCols = value;
 		}
 		else {
@@ -146,7 +108,7 @@ void Config::assignValueToProperty(char* propertyName, char* propertyValue,Confi
 	}
 	else if (strcmp(propertyName, "visibleCellSymbols") == 0) {
 		int value = 0;
-		if (tryConvertToInt(propertyValue, value)) {
+		if (Utils::tryConvertToInt(propertyValue, value)) {
 			this->visibleCellSymbols = value;
 		}
 		else {
@@ -200,11 +162,11 @@ void Config::readConfigFromFile(std::ifstream& ifs)
 	ConfigProperties cfp;
 	if (ifs.is_open()) {
 		while (ifs.peek() != EOF) {
-			char buffer[Constants::BUFFER_SIZE];
-			ifs.getline(buffer, Constants::BUFFER_SIZE);
-			char propertyName[Constants::BUFFER_SIZE];
-			char propertyValue[Constants::BUFFER_SIZE];
-			getPropertyNameFromLine(buffer, propertyName, propertyValue);
+			char buffer[Utils::BUFFER_SIZE];
+			ifs.getline(buffer, Utils::BUFFER_SIZE);
+			char propertyName[Utils::BUFFER_SIZE];
+			char propertyValue[Utils::BUFFER_SIZE];
+			Utils::splitValuesByDelimiter(buffer, propertyName, propertyValue, ':');
 			assignValueToProperty(propertyName, propertyValue,cfp);
 		}
 		if (!cfp.validateConfigProperties()) {
