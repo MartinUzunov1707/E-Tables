@@ -43,6 +43,13 @@ public:
 	Config(const char* fileName);
 	void readConfigFromFileName(const char* fileName);
 	void readConfigFromFile(std::ifstream& ifs);
-	
+	unsigned int getInitialRows();
+	unsigned int getInitialCols();
+	unsigned int getMaxRows();
+	unsigned int getMaxCols();
+	bool getAutoFit();
+	unsigned int getVisibleCellSymbols();
+	Allignment getinitialAllignment();
+	bool getClearConsoleAfterCommand();
 };
 

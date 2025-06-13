@@ -213,4 +213,44 @@ void Config::readConfigFromFile(std::ifstream& ifs)
 	}
 }
 
+unsigned int Config::getInitialRows()
+{
+	return this->initialTableRows;
+}
+
+unsigned int Config::getInitialCols()
+{
+	return this->initialTableCols;
+}
+
+unsigned int Config::getMaxRows()
+{
+	return this->maxTableRows;
+}
+
+unsigned int Config::getMaxCols()
+{
+	return this->maxTableCols;
+}
+
+bool Config::getAutoFit()
+{
+	return this->autoFit;
+}
+
+unsigned int Config::getVisibleCellSymbols()
+{
+	return this->visibleCellSymbols;
+}
+
+Allignment Config::getinitialAllignment()
+{
+	return this->initialAllignment;
+}
+
+bool Config::getClearConsoleAfterCommand()
+{
+	return this->clearConsoleAfterCommand;
+}
+
 
