@@ -134,6 +134,7 @@
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="NumCell.cpp" />
     <ClCompile Include="StringCell.cpp" />
+    <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BooleanCell.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="MyString.h" />
     <ClInclude Include="NumCell.h" />
     <ClInclude Include="StringCell.h" />
+    <ClInclude Include="Table.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
