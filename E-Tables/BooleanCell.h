@@ -11,5 +11,6 @@ public:
     void setValue(bool value);
     double evaluate() override;
     const char* print() const override;
+    virtual Cell* clone() override;
 };
 

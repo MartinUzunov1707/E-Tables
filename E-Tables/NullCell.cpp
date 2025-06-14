@@ -16,3 +16,8 @@ const char* NullCell::print() const
 {
 	return "";
 }
+
+Cell* NullCell::clone()
+{
+	return new NullCell(this->xValue, this->yValue);
+}

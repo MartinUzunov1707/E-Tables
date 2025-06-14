@@ -27,4 +27,9 @@ const char* BooleanCell::print() const
 	}
 }
 
+Cell* BooleanCell::clone()
+{
+	return new BooleanCell(this->xValue, this->yValue, this->value);
+}
+
 

@@ -5,6 +5,14 @@ public:
 	static const int BUFFER_SIZE = 1024;
 	static const int ZERO_ASCII = '0';
 	
+	static int getStringLength(const char* data) {
+		int i = 0;
+		while (data[i] != '\0') {
+			i++;
+		}
+		i++;
+		return i;
+	}
 
 	static bool tryConvertToInt(char* value, int& tryResult) {
 		int result = 0;
@@ -46,18 +54,23 @@ public:
 	static void splitValuesByDelimiter(char* line, char* lhs, char* rhs, char delimiter) {
 		int i = 0;
 		int a = 0;
-		while (line[i] != delimiter) {
+		int lineLength = getStringLength(line);
+		while (line[i] != delimiter && i != lineLength) {
 			lhs[i] = line[i];
 			i++;
 		}
 		lhs[i] = '\0';
-		i++; // skips delimeter
-		while (line[i] != '\0') {
-			rhs[a] = line[i];
-			i++;
-			a++;
+		if (i != lineLength) {
+			i++; // skips delimeter
+			while (line[i] != '\0') {
+				rhs[a] = line[i];
+				i++;
+				a++;
+			}
+			rhs[a] = '\0';
 		}
-		rhs[a] = '\0';
+		else {
+			rhs = nullptr;
+		}
 	}
-
 };

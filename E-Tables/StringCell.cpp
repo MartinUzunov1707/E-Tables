@@ -21,3 +21,8 @@ const char* StringCell::print() const
 {
 	return this->value.getString();
 }
+
+Cell* StringCell::clone()
+{
+	return new StringCell(this->xValue, this->yValue, this->value);
+}

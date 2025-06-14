@@ -13,5 +13,6 @@ public:
     void setValue(MyString value);
     double evaluate() override;
     const char* print() const override;
+    virtual Cell* clone() override;
 };
 

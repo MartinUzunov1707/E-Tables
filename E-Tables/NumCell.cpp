@@ -23,3 +23,8 @@ const char* NumCell::print() const
 	return Utils::parseIntToString(this->value);
 }
 
+Cell* NumCell::clone()
+{
+	return new NumCell(this->xValue, this->yValue, this->value);
+}
+
