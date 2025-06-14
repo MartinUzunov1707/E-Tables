@@ -64,6 +64,16 @@ Table::Table(MyString configFileName, MyString fileName) : cfg(configFileName.ge
 	readTableFromFile(fileName);
 }
 
+Table::Table(MyString configFileName) : cfg(configFileName.getString())
+{
+	this->currentMaxCol = cfg.getInitialCols();
+	this->currentMaxRow = cfg.getInitialRows();
+	table = new Cell * *[currentMaxRow] {0};
+	for (int a = 0; a < currentMaxRow;a++) {
+		table[a] = new Cell * [currentMaxCol];
+	}
+}
+
 void Table::readTableFromFile(MyString fileName)
 {
 	std::ifstream ifs(fileName.getString(), std::ifstream::in);
