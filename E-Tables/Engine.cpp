@@ -57,7 +57,6 @@ void Engine::printTable()
 	}
 	printHeader(visibleCellSymbols);
 	printMatrix(visibleCellSymbols);
-	printHorizontalBorder(visibleCellSymbols);
 }
 
 void Engine::printHeader(int vcs)
@@ -97,22 +96,19 @@ void Engine::printMatrix(int vcs)
 		for (int a = 0; a < Engine::table.getCurrentCol();a++) {
 			int currentCellLength = Utils::getStringLength(Engine::table.getByIndex(i, a).print()) - 1;
 			int startIndex;
-			if (currentCellLength >= vcs-1) {
+			if (currentCellLength >= vcs) {
 				startIndex = 0;
 			}
 			else {
-				startIndex = (vcs - currentCellLength) / 2;
+				startIndex = (vcs - currentCellLength) % 2 == 0 ? (vcs - currentCellLength) / 2 : ((vcs - currentCellLength) / 2) + 1; //(vcs - currentCellLength) / 2;
 			}
 			for (int x = 0; x < vcs; x++) {
-				if (x == startIndex) {
-					const char* cellValue = Engine::table.getByIndex(i, a).print();
-					for (int c = 0; c < currentCellLength; c++) {
-						if (c + currentCellLength == vcs) {
-							break;
-						}
-						std::cout << cellValue[c];
+				if (x == startIndex && currentCellLength != 0) {
+					for (int c = 0; x < vcs && c < currentCellLength; c++) {
+						std::cout << Engine::table.getByIndex(i, a).print()[c];
 						x++;
 					}
+					x--;
 				}
 				else {
 					std::cout << ' ';
@@ -121,6 +117,7 @@ void Engine::printMatrix(int vcs)
 			std::cout << '|';
 		}
 		std::cout << std::endl;
+		printHorizontalBorder(vcs);
 	}
 }
 
