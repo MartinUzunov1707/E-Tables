@@ -16,6 +16,10 @@ Allignment getAlignmentByString(char* value) {
 	}
 }
 
+Config::Config()
+{
+}
+
 Config::Config(const char* fileName)
 {
 	readConfigFromFileName(fileName);

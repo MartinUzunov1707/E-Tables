@@ -24,7 +24,7 @@ MyString::MyString()
 	this->length = 0;
 }
 
-int getLength(const char* data) {
+int getCharLength(const char* data) {
 	int i = 0;
 	while (data[i] != '\0') {
 		i++;
@@ -35,7 +35,7 @@ int getLength(const char* data) {
 
 MyString::MyString(const char* data)
 {
-	this->length = getLength(data);
+	this->length = getCharLength(data);
 	this->data = new char[this->length];
 	for (int i = 0; i < this->length; i++) {
 		this->data[i] = data[i];
@@ -110,7 +110,7 @@ MyString MyString::substr(int startIndex, int length) const
 
 MyString& MyString::append(const char* other)
 {
-	int length = getLength(other);
+	int length = getCharLength(other);
 	this->append((char*)other, length);
 	return *this;
 }
@@ -121,11 +121,11 @@ MyString& MyString::append(char other)
 	return *this;
 }
 
-//MyString& MyString::append(const MyString& other)
-//{
-//	this->append(other.data, other.length);
-//return *this;
-//}
+
+int MyString::getLength() const
+{
+	return getCharLength(data);
+}
 
 char* MyString::getString() const
 {

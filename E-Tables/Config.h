@@ -41,7 +41,7 @@ private:
 	bool clearConsoleAfterCommand = false;
 	void assignValueToProperty(char* propertyName, char* propertyValue, ConfigProperties& cfp);
 public:
-	Config() = delete;
+	Config();
 	Config(const char* fileName);
 	void readConfigFromFileName(const char* fileName);
 	void readConfigFromFile(std::ifstream& ifs);
