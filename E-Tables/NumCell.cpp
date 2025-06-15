@@ -18,9 +18,11 @@ double NumCell::evaluate()
 	return value;
 }
 
-const char* NumCell::print() const
+const char* NumCell::toString() const
 {
-	return Utils::parseIntToString(this->value);
+	char buffer[Utils::BUFFER_SIZE];
+	Utils::parseIntToString(this->value, buffer);
+	return buffer;
 }
 
 Cell* NumCell::clone()

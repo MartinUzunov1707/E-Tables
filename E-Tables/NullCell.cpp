@@ -12,7 +12,7 @@ double NullCell::evaluate()
 	return -1;
 }
 
-const char* NullCell::print() const
+const char* NullCell::toString() const
 {
 	return "";
 }

@@ -7,7 +7,7 @@ class NullCell :
 public:
     NullCell(int x, char y);
     double evaluate() override;
-    const char* print() const override;
+    const char* toString() const override;
     virtual Cell* clone() override;
 };
 

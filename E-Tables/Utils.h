@@ -33,8 +33,7 @@ public:
 		return true;
 	}
 
-	static char* parseIntToString(int num) {
-		char buffer[BUFFER_SIZE];
+	static void parseIntToString(int num, char* buffer) {
 		int digitCounter = 0;
 		int numCopy = num;
 		while (num != 0) {
@@ -48,7 +47,6 @@ public:
 			digitCounter--;
 		}
 		buffer[lastIndex] = '\0';
-		return buffer;
 	}
 
 	static void splitValuesByDelimiter(char* line, char* lhs, char* rhs, char delimiter) {

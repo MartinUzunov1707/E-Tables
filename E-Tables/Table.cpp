@@ -140,7 +140,7 @@ void Table::writeTableToFile(MyString fileName) const
 	ofs << this->currentRow << ';' << this->currentCol << std::endl;
 	for (int i = 0; i < this->currentRow; i++) {
 		for (int a = 0; a < this->currentCol; a++) {
-			ofs << this->table[i][a]->print() << '|';
+			ofs << this->table[i][a]->toString() << '|';
 		}
 		ofs << std::endl;
 	}
@@ -177,7 +177,7 @@ int Table::getMaxCellLength()
 	int res = INT_MIN;
 	for (int i = 0; i < this->currentRow; i++) {
 		for (int a = 0; a < this->currentCol; a++) {
-			int currentLength = Utils::getStringLength(this->table[i][a]->print());
+			int currentLength = Utils::getStringLength(this->table[i][a]->toString());
 			if (res < currentLength) {
 				res = currentLength;
 			}

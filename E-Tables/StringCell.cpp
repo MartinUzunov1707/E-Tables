@@ -17,7 +17,7 @@ double StringCell::evaluate()
 	return 0.0;
 }
 
-const char* StringCell::print() const
+const char* StringCell::toString() const
 {
 	return this->value.getString();
 }

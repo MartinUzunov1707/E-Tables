@@ -42,7 +42,6 @@ void Engine::run()
 		printTable();
 		char buffer[Utils::BUFFER_SIZE];
 		std::cin >> buffer;
-		//todo
 	}
 }
 
@@ -91,10 +90,12 @@ void Engine::printHorizontalBorder(int vcs) {
 
 void Engine::printMatrix(int vcs)
 {
+	MyString cellValue;
 	for (int i = 0; i < Engine::table.getCurrentRow();i++) {
 		std::cout << "| " << (char)(i + 'A') << " |";
 		for (int a = 0; a < Engine::table.getCurrentCol();a++) {
-			int currentCellLength = Utils::getStringLength(Engine::table.getByIndex(i, a).print()) - 1;
+			cellValue = Engine::table.getByIndex(i, a).toString();
+			int currentCellLength = Utils::getStringLength(cellValue.getString()) - 1;
 			int startIndex;
 			if (currentCellLength >= vcs) {
 				startIndex = 0;
@@ -105,7 +106,7 @@ void Engine::printMatrix(int vcs)
 			for (int x = 0; x < vcs; x++) {
 				if (x == startIndex && currentCellLength != 0) {
 					for (int c = 0; x < vcs && c < currentCellLength; c++) {
-						std::cout << Engine::table.getByIndex(i, a).print()[c];
+						std::cout << cellValue.getString()[c];
 						x++;
 					}
 					x--;
