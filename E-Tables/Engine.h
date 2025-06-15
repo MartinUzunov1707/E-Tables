@@ -13,5 +13,6 @@ private:
 	static void printMatrix(int vcs);
 public:
 	static void initialize();
+	static Table& getTable() { return table; }
 };
 

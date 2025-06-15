@@ -100,9 +100,9 @@ Table::Table(MyString configFileName) : cfg(configFileName.getString())
 {
 	this->currentCol = cfg.getInitialCols();
 	this->currentRow = cfg.getInitialRows();
-	table = new Cell * *[currentRow] {0};
-	for (int a = 0; a < currentRow;a++) {
-		table[a] = new Cell * [currentCol];
+	table = new Cell * *[cfg.getMaxRows()] {0};
+	for (int a = 0; a < cfg.getMaxRows();a++) {
+		table[a] = new Cell * [cfg.getMaxCols()];
 	}
 }
 

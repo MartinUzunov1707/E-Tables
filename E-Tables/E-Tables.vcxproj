@@ -134,11 +134,14 @@
     <ClCompile Include="DeleteCommand.cpp" />
     <ClCompile Include="E-Tables.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EqualsCommand.cpp" />
+    <ClCompile Include="Formula.cpp" />
     <ClCompile Include="InsertCommand.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="NullCell.cpp" />
     <ClCompile Include="NumCell.cpp" />
     <ClCompile Include="StringCell.cpp" />
+    <ClCompile Include="SumFormula.cpp" />
     <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,11 +151,14 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="DeleteCommand.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="EqualsCommand.h" />
+    <ClInclude Include="Formula.h" />
     <ClInclude Include="InsertCommand.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="NullCell.h" />
     <ClInclude Include="NumCell.h" />
     <ClInclude Include="StringCell.h" />
+    <ClInclude Include="SumFormula.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
