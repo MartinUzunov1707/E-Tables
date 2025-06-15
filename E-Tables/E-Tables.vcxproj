@@ -133,6 +133,7 @@
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="E-Tables.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="InsertCommand.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="NullCell.cpp" />
     <ClCompile Include="NumCell.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="InsertCommand.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="NullCell.h" />
     <ClInclude Include="NumCell.h" />

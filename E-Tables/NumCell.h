@@ -11,5 +11,6 @@ public:
     double evaluate() override;
     const char* toString() const override;
     virtual Cell* clone() override;
+	virtual void clear() override;
 };
 

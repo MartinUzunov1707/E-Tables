@@ -26,3 +26,8 @@ Cell* StringCell::clone()
 {
 	return new StringCell(this->xValue, this->yValue, this->value);
 }
+
+void StringCell::clear()
+{
+	setValue("");
+}

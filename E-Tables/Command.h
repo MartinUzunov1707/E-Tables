@@ -2,10 +2,10 @@
 #include "Cell.h"
 class Command
 {
-private :
+protected :
 	Cell* target;
-	Argument arg;
+	char* arg;
 public:
-	void execute();
+	virtual void execute() = 0;
 };
 

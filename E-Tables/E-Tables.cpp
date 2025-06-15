@@ -9,6 +9,10 @@ int main()
 	t.writeTableToFile("test2.txt");
 	std::cou
 	t << t.getMaxCellLength();*/
-	Engine::initialize();
+	//Engine::initialize();
+	/*char number[] = "123.2222";
+	double value =0;
+	Utils::tryConvertToDouble(number, value);
+	std::cout << number << std::endl;*/
 }
 

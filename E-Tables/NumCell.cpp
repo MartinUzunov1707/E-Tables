@@ -21,12 +21,23 @@ double NumCell::evaluate()
 const char* NumCell::toString() const
 {
 	char buffer[Utils::BUFFER_SIZE];
-	Utils::parseIntToString(this->value, buffer);
+	if (floor(this->value) == this->value) {
+		Utils::parseIntToString(this->value, buffer);
+	}
+	else {
+		Utils::parseDoubleToString(this->value, buffer);
+	}
+	
 	return buffer;
 }
 
 Cell* NumCell::clone()
 {
 	return new NumCell(this->xValue, this->yValue, this->value);
+}
+
+void NumCell::clear()
+{
+	this->value = 0.0;
 }
 

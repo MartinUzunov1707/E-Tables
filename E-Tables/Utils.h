@@ -14,6 +14,35 @@ public:
 		return i;
 	}
 
+	static void parseDoubleToString(double value, char* buffer) {
+		//limits to 3 decimal places
+		int integerPart = (int)value;
+		int decimalPart = (int)((value - integerPart)*pow(10,3));
+		//decimal part is always 3 digits long
+		int integerDigitCounter = 0;
+		int integerPartCopy = integerPart;
+		while (integerPart != 0) {
+			integerPart /= 10;
+			integerDigitCounter++;
+		}
+		int lastIndex = integerDigitCounter + 4; // 3 digits for decimal part + 1 for dot
+		int reverseIndex = lastIndex - 1;
+		while (decimalPart != 0) {
+			buffer[reverseIndex] = (decimalPart % 10) + '0';
+			decimalPart /= 10;
+			reverseIndex--;
+		}
+		buffer[reverseIndex--] = '.';
+
+		while (integerPartCopy != 0) {
+			buffer[reverseIndex] = (integerPartCopy % 10) + '0';
+			integerPartCopy /= 10;
+			reverseIndex--;
+		}
+
+		buffer[lastIndex] = '\0';
+	}
+
 	static bool tryConvertToInt(char* value, int& tryResult) {
 		int result = 0;
 		int length = 0;
@@ -32,7 +61,39 @@ public:
 		tryResult = result;
 		return true;
 	}
+	static bool tryConvertToDouble(char* value, double& tryResult) {
+		int intResult = 0;
+		int decimalResult = 0;
+		int length = 0;
+		int decimalPointIndex = -1;
+		bool isAfterDecimalPoint = false;
+		while (value[length] != '\0') {
+			if (value[length] == '.') {
+				decimalPointIndex = length;
+			}
+			length++;
+		}
 
+		int reverseIndex = length - 1;
+		for (int i = 0; i < length;i++) {
+			if (value[i] == '.') {
+				isAfterDecimalPoint = true;
+			}
+			if (value[i] < '0' || value[i] > '9') {
+				return false;
+			}
+			if (isAfterDecimalPoint) {
+				decimalResult += (value[i] - '0') * pow(10, reverseIndex);
+			}
+			else {
+				intResult += (value[i] - '0') * pow(10, reverseIndex);
+			}
+			reverseIndex--;
+		}
+
+		tryResult = intResult + (decimalResult / pow(10,length-decimalPointIndex - 1));
+		return true;
+	}
 	static void parseIntToString(int num, char* buffer) {
 		int digitCounter = 0;
 		int numCopy = num;

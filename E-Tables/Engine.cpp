@@ -94,8 +94,18 @@ void Engine::printMatrix(int vcs)
 	for (int i = 0; i < Engine::table.getCurrentRow();i++) {
 		std::cout << "| " << (char)(i + 'A') << " |";
 		for (int a = 0; a < Engine::table.getCurrentCol();a++) {
-			cellValue = Engine::table.getByIndex(i, a).toString();
-			int currentCellLength = Utils::getStringLength(cellValue.getString()) - 1;
+			int currentCellLength = 0;
+			if (strcmp(Engine::table.getByIndex(i, a).toString(), "t") == 0) {
+				cellValue = "TRUE";
+				currentCellLength = 4;
+			} else if(strcmp(Engine::table.getByIndex(i, a).toString(), "f") == 0){
+				cellValue = "FALSE";
+				currentCellLength = 5;
+			}
+			else {
+				cellValue = Engine::table.getByIndex(i, a).toString();
+				currentCellLength = Utils::getStringLength(cellValue.getString()) - 1;
+			}
 			int startIndex;
 			if (currentCellLength >= vcs) {
 				startIndex = 0;

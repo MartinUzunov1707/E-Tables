@@ -21,3 +21,8 @@ Cell* NullCell::clone()
 {
 	return new NullCell(this->xValue, this->yValue);
 }
+
+void NullCell::clear()
+{
+	//NullCell does not hold data, so no action needed
+}

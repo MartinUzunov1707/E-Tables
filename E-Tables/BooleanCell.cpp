@@ -32,4 +32,9 @@ Cell* BooleanCell::clone()
 	return new BooleanCell(this->xValue, this->yValue, this->value);
 }
 
+void BooleanCell::clear()
+{
+	this->value = false;
+}
+
 
