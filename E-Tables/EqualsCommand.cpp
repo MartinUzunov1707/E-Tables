@@ -40,7 +40,7 @@ Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
 void EqualsCommand::execute()
 {
 	int xCoord = target->getXValue();
-	int yCoord = target->getYValue() - 'A';
+	char yCoord = target->getYValue();
 	//An argument of the type A1 has a length of 3 characters, because we are counting '\0'
 	char formulaType[Utils::BUFFER_SIZE];
 	char formulaArgs[Utils::BUFFER_SIZE];
@@ -50,7 +50,8 @@ void EqualsCommand::execute()
 	
 	if (!hasDelimiter) {
 		delete[] target;
-		target = &Engine::getTable().getByIndex(arg[1] - 'A', arg[2] - '1');
+		//target = &Engine::getTable().getByIndex(arg[1] - 'A', arg[2] - '1');
+		target = new ReferenceCell(xCoord, yCoord,arg[2] - '1', arg[1] - 'A');
 	}
 	else {
 		//we have to delete the last closing bracket
@@ -69,5 +70,5 @@ void EqualsCommand::execute()
 			}
 		}
 	}
-	Engine::getTable().setPointerByIndex(xCoord, yCoord, target);
+	Engine::getTable().setPointerByIndex(xCoord, yCoord - 'A', target);
 }

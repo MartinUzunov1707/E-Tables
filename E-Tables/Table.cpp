@@ -14,7 +14,7 @@ void assignValuesFromRow(const char* row, int rowIndex,Cell*** table) {
 	Cell* currentCell = nullptr;
 	while (row[i] != '\0') {
 		if (row[i] == 't' || row[i] == 'f') {		
-			currentCell = new BooleanCell(rowIndex, currentCol + 'A', (row[i] == 't'));
+			currentCell = new BooleanCell(currentCol, rowIndex + 'A', (row[i] == 't'));
 		}
 		else if (row[i] == '"') {
 			value[valueCursor++] = row[i++];
@@ -25,7 +25,7 @@ void assignValuesFromRow(const char* row, int rowIndex,Cell*** table) {
 			}
 			value[valueCursor++] = row[i];
 			value[valueCursor] = '\0';
-			currentCell = new StringCell(rowIndex, currentCol + 'A',value);
+			currentCell = new StringCell(currentCol, rowIndex + 'A',value);
 			valueCursor = 0;
 		}
 		else if (row[i] >= '0' && row[i] <= '9') {
@@ -40,13 +40,13 @@ void assignValuesFromRow(const char* row, int rowIndex,Cell*** table) {
 			if (!Utils::tryConvertToInt(value, res)) {
 				throw std::invalid_argument("There has been an error, please check the save file for the current table!");
 			}
-			currentCell = new NumCell(rowIndex, currentCol + 'A', res);  
+			currentCell = new NumCell(currentCol, rowIndex + 'A', res);  
 			valueCursor = 0;
 			i--;
 		}
 		else if (row[i] == '|') {
 			if (currentCell == nullptr) {
-				table[rowIndex][currentCol] = new NullCell(rowIndex, currentCol + 'A');
+				table[rowIndex][currentCol] = new NullCell(currentCol, rowIndex + 'A');
 			}
 			else{
 				table[rowIndex][currentCol] = currentCell;
@@ -188,21 +188,21 @@ int Table::getMaxCellLength()
 
 Cell& Table::getByIndex(int x, int y)
 {
-	return *(this->table[x][y]);
+	return *(this->table[y][x]);
 }
 
 Cell* Table::getPointerByIndex(int x, int y)
 {
-	return this->table[x][y];
+	return this->table[y][x];
 }
 
 void Table::setPointerByIndex(int x, int y, Cell* value)
 {
-	this->table[x][y] = value;
+	this->table[y][x] = value;
 }
 void Table::setPointerCloneByIndex(int x, int y, Cell* value)
 {
-	this->table[x][y] = value->clone();
+	this->table[y][x] = value->clone();
 }
 
 Table& Table::operator=(const Table& other)

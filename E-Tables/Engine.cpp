@@ -41,7 +41,7 @@ void Engine::initialize()
 Command* Engine::commandFactory(char* cell, char* command)
 {
 	
-	Cell* target = &Engine::getTable().getByIndex(cell[0] - 'A', cell[1] - '1');
+	Cell* target = &Engine::getTable().getByIndex(cell[1] - '1', cell[0] - 'A');
 	if (command[0] == '=') {
 		return new EqualsCommand(target, command);
 	}
@@ -121,15 +121,15 @@ void Engine::printMatrix(int vcs)
 		std::cout << "| " << (char)(i + 'A') << " |";
 		for (int a = 0; a < Engine::table.getCurrentCol();a++) {
 			int currentCellLength = 0;
-			if (strcmp(Engine::table.getByIndex(i, a).toString(), "t") == 0) {
+			if (strcmp(Engine::table.getByIndex(a, i).toString(), "t") == 0) {
 				cellValue = "TRUE";
 				currentCellLength = 4;
-			} else if(strcmp(Engine::table.getByIndex(i, a).toString(), "f") == 0){
+			} else if(strcmp(Engine::table.getByIndex(a, i).toString(), "f") == 0){
 				cellValue = "FALSE";
 				currentCellLength = 5;
 			}
 			else {
-				cellValue = Engine::table.getByIndex(i, a).toString();
+				cellValue = Engine::table.getByIndex(a, i).toString();
 				currentCellLength = Utils::getStringLength(cellValue.getString()) - 1;
 			}
 			int startIndex;

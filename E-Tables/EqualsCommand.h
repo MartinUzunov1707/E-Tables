@@ -5,6 +5,7 @@
 #include "StringCell.h"
 #include "BooleanCell.h"
 #include "NumCell.h"
+#include "ReferenceCell.h"
 
 class EqualsCommand :
     public Command

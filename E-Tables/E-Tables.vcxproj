@@ -141,6 +141,7 @@
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="NullCell.cpp" />
     <ClCompile Include="NumCell.cpp" />
+    <ClCompile Include="ReferenceCell.cpp" />
     <ClCompile Include="StringCell.cpp" />
     <ClCompile Include="SumFormula.cpp" />
     <ClCompile Include="Table.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="MyString.h" />
     <ClInclude Include="NullCell.h" />
     <ClInclude Include="NumCell.h" />
+    <ClInclude Include="ReferenceCell.h" />
     <ClInclude Include="StringCell.h" />
     <ClInclude Include="SumFormula.h" />
     <ClInclude Include="Table.h" />
