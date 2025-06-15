@@ -10,6 +10,7 @@
 class InsertCommand : public Command
 {
 public:
+	InsertCommand(Cell* target, char* args);
 	void execute() override;
 };
 

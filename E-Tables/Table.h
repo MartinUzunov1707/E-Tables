@@ -25,6 +25,9 @@ public:
 	void setCurrentRow(int val);
 	int getMaxCellLength();
 	Cell& getByIndex(int x, int y);
+	Cell* getPointerByIndex(int x, int y);
+	void setPointerCloneByIndex(int x, int y, Cell* value);
+	void setPointerByIndex(int x, int y, Cell* value);
 	Table& operator=(const Table& other);
 	~Table();
 };

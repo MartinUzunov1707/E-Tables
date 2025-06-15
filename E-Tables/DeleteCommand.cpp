@@ -1,5 +1,9 @@
 #include "DeleteCommand.h"
 #include "Engine.h"
+DeleteCommand::DeleteCommand(Cell* target)
+{
+	this->target = target;
+}
 void DeleteCommand::execute()
 {
 	if (Utils::validateCellCoordinates(this->target->getXValue(), this->target->getYValue() - 'A', 

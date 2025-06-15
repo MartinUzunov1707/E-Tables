@@ -5,6 +5,7 @@ class DeleteCommand :
     public Command
 {
 public:
+    DeleteCommand(Cell* target);
     void execute() override;
 };
 

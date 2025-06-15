@@ -191,6 +191,20 @@ Cell& Table::getByIndex(int x, int y)
 	return *(this->table[x][y]);
 }
 
+Cell* Table::getPointerByIndex(int x, int y)
+{
+	return this->table[x][y];
+}
+
+void Table::setPointerByIndex(int x, int y, Cell* value)
+{
+	this->table[x][y] = value;
+}
+void Table::setPointerCloneByIndex(int x, int y, Cell* value)
+{
+	this->table[x][y] = value->clone();
+}
+
 Table& Table::operator=(const Table& other)
 {
 	if (this != &other) {

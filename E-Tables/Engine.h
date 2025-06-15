@@ -1,7 +1,7 @@
 #pragma once
 #include "Table.h"
-#include <iostream>
 #include "Utils.h"
+#include "Command.h"
 class Engine
 {
 private:
@@ -11,6 +11,7 @@ private:
 	static void printHeader(int vcs);
 	static void printHorizontalBorder(int vcs);
 	static void printMatrix(int vcs);
+	static Command* commandFactory(char* cell, char* command);
 public:
 	static void initialize();
 	static Table& getTable() { return table; }

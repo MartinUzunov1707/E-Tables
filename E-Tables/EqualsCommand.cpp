@@ -3,10 +3,14 @@
 #include "Formula.h"
 #include "SumFormula.h"
 
-EqualsCommand::EqualsCommand(Cell* target, char* arg)
+EqualsCommand::EqualsCommand(Cell* target, char* args)
 {
-	target = target;
-	arg = arg;
+	this->target = target;
+	this->arg = new char[Utils::BUFFER_SIZE];
+	int argsLength = Utils::getStringLength(args);
+	for (int i = 0;i < argsLength; i++) {
+		arg[i] = args[i];
+	}
 }
 
 Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
@@ -35,35 +39,35 @@ Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
 
 void EqualsCommand::execute()
 {
+	int xCoord = target->getXValue();
+	int yCoord = target->getYValue() - 'A';
 	//An argument of the type A1 has a length of 3 characters, because we are counting '\0'
 	char formulaType[Utils::BUFFER_SIZE];
 	char formulaArgs[Utils::BUFFER_SIZE];
-	MyString str = formulaArgs;
-	bool hasDelimiter = str.contains('(');
 	Utils::splitValuesByDelimiter(arg, formulaType, formulaArgs, '(');
-	//we have to delete the last closing bracket
-	int formulaArgsLength = Utils::getStringLength(formulaArgs) - 1;
-	formulaArgs[formulaArgsLength] = '\0';
+	MyString str = arg;
+	bool hasDelimiter = str.contains('(');
+	
 	if (!hasDelimiter) {
 		delete[] target;
-		target = &Engine::getTable().getByIndex(arg[0] - 'A', arg[1] - '0');
+		target = &Engine::getTable().getByIndex(arg[1] - 'A', arg[2] - '1');
 	}
 	else {
+		//we have to delete the last closing bracket
+		int formulaArgsLength = Utils::getStringLength(formulaArgs);
+		formulaArgs[formulaArgsLength - 1] = '\0';
 		Formula* formula = formulaFactory(formulaType, formulaArgs, formulaArgsLength);
 		if (strcmp(formula->evaluate(), "") == 0) {
 			double calcResult = formula->calculate();
 			if (calcResult == -1) {
-				int xCoord = target->getXValue();
-				int yCoord = target->getYValue() - 'A';
 				delete[] target;
 				target = new ErrorCell(xCoord, yCoord);
 			}
 			else {
-				int xCoord = target->getXValue();
-				int yCoord = target->getYValue() - 'A';
 				delete[] target;
 				target = new NumCell(xCoord, yCoord, calcResult);
 			}
 		}
 	}
+	Engine::getTable().setPointerByIndex(xCoord, yCoord, target);
 }

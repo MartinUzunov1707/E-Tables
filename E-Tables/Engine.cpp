@@ -1,4 +1,9 @@
 #include "Engine.h"
+#include "EqualsCommand.h"
+#include "InsertCommand.h"
+#include "DeleteCommand.h"
+#include <iostream> 
+
 Table Engine::table;
 
 void Engine::initialize()
@@ -33,6 +38,23 @@ void Engine::initialize()
 	run();
 }
 
+Command* Engine::commandFactory(char* cell, char* command)
+{
+	
+	Cell* target = &Engine::getTable().getByIndex(cell[0] - 'A', cell[1] - '1');
+	if (command[0] == '=') {
+		return new EqualsCommand(target, command);
+	}
+	else if (strcmp(command, "insert") == 0) {
+		char insertArgs[Utils::BUFFER_SIZE];
+		std::cin >> insertArgs;
+		return new InsertCommand(target, insertArgs);
+	}
+	else if ((strcmp(command, "delete") == 0)) {
+		return new DeleteCommand(target);
+	}
+}
+
 void Engine::run()
 {
 	while (true) {
@@ -40,11 +62,12 @@ void Engine::run()
 			system("cls");
 		}
 		printTable();
-		char buffer[Utils::BUFFER_SIZE];
-		std::cin >> buffer;
-
-		MyString command = buffer;
-
+		char cell[Utils::BUFFER_SIZE];
+		char commandString[Utils::BUFFER_SIZE];
+		std::cin >> cell;
+		std::cin >> commandString;
+		Command* command = commandFactory(cell, commandString);
+		command->execute();
 	}
 }
 
@@ -134,5 +157,7 @@ void Engine::printMatrix(int vcs)
 		printHorizontalBorder(vcs);
 	}
 }
+
+
 
 
