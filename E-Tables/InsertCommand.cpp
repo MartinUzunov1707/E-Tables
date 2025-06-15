@@ -4,8 +4,16 @@
 
 void InsertCommand::execute()
 {
-	if (target->getXValue() > 0 && target->getXValue() < Engine::getTable().getConfig().getMaxCols()
-		&& target->getYValue() > 'A' && target->getXValue() < Engine::getTable().getConfig().getMaxRows() + 'A') {
+	if (Utils::validateCellCoordinates(this->target->getXValue(),this->target->getYValue()-'A',Engine::getTable().getConfig().getMaxCols(), Engine::getTable().getConfig().getMaxRows()))
+	{
+		// Update the current column and row if necessary
+		if (target->getXValue() > Engine::getTable().getCurrentCol()) {
+			Engine::getTable().setCurrentCol(target->getXValue());
+		}
+		if (target->getYValue() - 'A' > Engine::getTable().getCurrentRow()) {
+			Engine::getTable().setCurrentRow(target->getYValue() - 'A');
+		}
+
 		if (arg[0] == '"') {
 			delete[] target;
 			target = new StringCell(this->target->getXValue(), this->target->getYValue(), arg);

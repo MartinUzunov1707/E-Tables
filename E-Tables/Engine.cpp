@@ -42,6 +42,9 @@ void Engine::run()
 		printTable();
 		char buffer[Utils::BUFFER_SIZE];
 		std::cin >> buffer;
+
+		MyString command = buffer;
+
 	}
 }
 

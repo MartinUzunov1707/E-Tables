@@ -18,6 +18,7 @@ public:
 	MyString& append(char other);
 	MyString& append(char* other, int length);
 	MyString substr(int startIndex, int length) const;
+	bool contains(char symbol) const;
 	
 	int getLength() const;
 	char* getString() const;

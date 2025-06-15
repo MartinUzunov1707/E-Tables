@@ -42,7 +42,9 @@ public:
 
 		buffer[lastIndex] = '\0';
 	}
-
+	static bool validateCellCoordinates(int xVal, int yVal, int maxXVal, int maxYVal) {
+		return xVal > 0 && xVal < maxXVal && yVal > 0 && yVal < maxYVal;
+	}
 	static bool tryConvertToInt(char* value, int& tryResult) {
 		int result = 0;
 		int length = 0;
@@ -110,6 +112,44 @@ public:
 		buffer[lastIndex] = '\0';
 	}
 
+	static char** splitValuesByDelimiter(char* line, char delimiter) {
+		char** result = new char*[countDelimiter(line,delimiter) + 1];
+		for (int a = 0; a <=countDelimiter(line, delimiter);a++) {
+			result[a] = new char[Utils::BUFFER_SIZE];
+		}
+		int stringIndex = 0;
+		int currentStringIndex = 0;
+		int i = 0;
+		int lineLength = getStringLength(line);
+
+		while (true) {
+			if (line[i] == '\0') {
+				result[stringIndex][currentStringIndex] = '\0';
+				break;
+			}
+			else if (line[i] == delimiter) {
+				result[stringIndex][currentStringIndex] = '\0';
+				stringIndex++;
+				currentStringIndex = 0;
+				i++;
+			}
+			else {
+				result[stringIndex][currentStringIndex] = line[i];
+				i++;
+				currentStringIndex++;
+			}
+		}
+		return result;
+	}
+	static int countDelimiter(char* line, char delimiter) {
+		int res = 0;
+		for (int i = 0; i < getStringLength(line); i++) {
+			if (line[i] == delimiter) {
+				res++;
+			}
+		}
+		return res;
+	}
 	static void splitValuesByDelimiter(char* line, char* lhs, char* rhs, char delimiter) {
 		int i = 0;
 		int a = 0;

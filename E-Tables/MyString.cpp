@@ -108,6 +108,16 @@ MyString MyString::substr(int startIndex, int length) const
 	return MyString(temp);
 }
 
+bool MyString::contains(char symbol) const
+{
+	for (int i = 0; i < this->length;i++) {
+		if (this->data[i] == symbol) {
+			return true;
+		}
+	}
+	return false;
+}
+
 MyString& MyString::append(const char* other)
 {
 	int length = getCharLength(other);
