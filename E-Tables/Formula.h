@@ -6,6 +6,6 @@ protected:
 	int lengthOfArgs;
 public:
 	virtual double calculate() const = 0;
-	virtual char* evaluate() const = 0;
+	virtual const char* evaluate() const = 0;
 };
 

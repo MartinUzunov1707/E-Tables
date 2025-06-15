@@ -17,8 +17,8 @@ double SumFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumer
 			for (int i = 0; i < rowDiff; i++) {
 				for (int a = 0; a < colDiff; a++) {
 					Cell* target = &Engine::getTable().getByIndex(i, a);
-					if (target->toString()[0] != '"' && strcmp(target->toString(), "") != 0) {
-						hasNumericParameters = true;
+					if (target->toString()[0] == '"' || strcmp(target->toString(), "") == 0) {
+						hasNumericParameters = false;
 					}
 					sum += target->evaluate();
 				}
@@ -37,11 +37,11 @@ SumFormula::SumFormula(char** args, int length)
 double SumFormula::calculate() const
 {
 	double sum = 0.0;
-	bool hasNumericParameters = false;
+	bool hasNumericParameters = true;
 	for (int i = 0; i<lengthOfArgs; i++)
 	{
 		if(args[i][0]>='A' && args[i][0] <=Engine::getTable().getConfig().getMaxRows()-'A') {
-			int xCoordinate = args[i][0] - 'A';
+			int xCoordinate = args[i][1] - '1';
 			MyString currentArg = args[i];
 			int argLength = currentArg.getLength();
 			if (currentArg.contains(':')) {
@@ -51,12 +51,11 @@ double SumFormula::calculate() const
 				sum += evaluateRange(leftCell, rightCell, hasNumericParameters);
 			}
 			else {
-				int yCoordinate = 0;
-				Utils::tryConvertToInt(currentArg.substr(1, argLength - 1).getString(), yCoordinate);
-				if (yCoordinate >= 0 && yCoordinate < Engine::getTable().getConfig().getMaxCols()) {
+				int yCoordinate = args[i][0] - 'A';
+				if (yCoordinate >= 0 && yCoordinate <= Engine::getTable().getConfig().getMaxCols()) {
 					Cell* target = &Engine::getTable().getByIndex(xCoordinate, yCoordinate);
-					if (target->toString()[0] != '"' && target->toString()[0] != '#' && strcmp(target->toString(),"") != 0 ) {
-						hasNumericParameters = true;
+					if (target->toString()[0] == '"' || target->toString()[0] == '#' || strcmp(target->toString(),"") == 0 ) {
+						hasNumericParameters = false;
 					}
 					sum += target->evaluate();
 				}
@@ -75,7 +74,7 @@ double SumFormula::calculate() const
 	return sum;
 }
 
-char* SumFormula::evaluate() const
+const char* SumFormula::evaluate() const
 {
-	return nullptr;
+	return "";
 }

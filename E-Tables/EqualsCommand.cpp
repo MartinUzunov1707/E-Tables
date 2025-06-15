@@ -14,25 +14,25 @@ EqualsCommand::EqualsCommand(Cell* target, char* args)
 }
 
 Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
-	if (strcmp(formulaType, "SUM")) {
+	if (strcmp(formulaType, "=SUM") == 0) {
 		return new SumFormula(Utils::splitValuesByDelimiter(formulaArgs, ','),argsLength);
 	}
-	else if (strcmp(formulaType, "AVERAGE")) {
+	else if (strcmp(formulaType, "=AVERAGE") == 0) {
 
 	}
-	else if (strcmp(formulaType, "MIN")) {
+	else if (strcmp(formulaType, "=MIN") == 0) {
 
 	}
-	else if (strcmp(formulaType, "MAX")) {
+	else if (strcmp(formulaType, "=MAX") == 0) {
 
 	}
-	else if (strcmp(formulaType, "LEN")) {
+	else if (strcmp(formulaType, "=LEN") == 0) {
 
 	}
-	else if (strcmp(formulaType, "CONCAT")) {
+	else if (strcmp(formulaType, "=CONCAT") == 0) {
 
 	}
-	else if (strcmp(formulaType, "SUBSTR")) {
+	else if (strcmp(formulaType, "=SUBSTR") == 0) {
 
 	}
 }
@@ -55,10 +55,12 @@ void EqualsCommand::execute()
 	}
 	else {
 		//we have to delete the last closing bracket
-		int formulaArgsLength = Utils::getStringLength(formulaArgs);
+		int formulaArgsLength = Utils::getStringLength(formulaArgs) - 1;
 		formulaArgs[formulaArgsLength - 1] = '\0';
+		formulaArgsLength = Utils::countDelimiter(formulaArgs,',') + 1;
 		Formula* formula = formulaFactory(formulaType, formulaArgs, formulaArgsLength);
-		if (strcmp(formula->evaluate(), "") == 0) {
+		const char* result = formula->evaluate();
+		if (strcmp(result, "") == 0) {
 			double calcResult = formula->calculate();
 			if (calcResult == -1) {
 				delete[] target;
