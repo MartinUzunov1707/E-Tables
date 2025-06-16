@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AverageFormula.cpp" />
     <ClCompile Include="BooleanCell.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Command.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AverageFormula.h" />
     <ClInclude Include="BooleanCell.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Command.h" />

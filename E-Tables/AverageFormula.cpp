@@ -1,24 +1,25 @@
-#include "SumFormula.h"
+#include "AverageFormula.h"
 #include "Engine.h"
 
-double SumFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters) const
+double AverageFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters,int& cellCounter) const
 {
 	double sum = 0.0;
 	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A'
 		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
 		int leftYCoordinate = leftCell[0] - 'A', leftXCoordinate = leftCell[1] - '1';
 		int rightYCoordinate = rightCell[0] - 'A', rightXCoordinate = rightCell[1] - '1';
-		
+
 		int colDiff = rightCell[1] - leftCell[1], rowDiff = rightYCoordinate - leftYCoordinate;
 		if (leftYCoordinate >= 0 && leftYCoordinate < Engine::getTable().getConfig().getMaxCols()
 			&& rightYCoordinate >= 0 && rightYCoordinate < Engine::getTable().getConfig().getMaxCols()) {
 			for (int i = 0; i <= rowDiff; i++) {
-				for (int a = 0; a <=  colDiff; a++) {
+				for (int a = 0; a <= colDiff; a++) {
 					Cell* target = &Engine::getTable().getByIndex(a + leftXCoordinate, i + leftYCoordinate);
 					if (target->toString()[0] == '"' || target->toString()[0] == '#' || strcmp(target->toString(), "") == 0) {
 						hasNumericParameters = false;
 					}
 					sum += target->evaluate();
+					cellCounter++;
 				}
 			}
 		}
@@ -26,23 +27,10 @@ double SumFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumer
 	return sum;
 }
 
-SumFormula::SumFormula(char** args, int length)
-{
-	this->args = args;
-	this->lengthOfArgs = length;
-}
-
-SumFormula::~SumFormula()
-{
-	for (int i = 0; i < this->lengthOfArgs; i++) {
-		delete[] args[i];
-	}
-	delete[] args;
-}
-
-double SumFormula::calculate() const
+double AverageFormula::calculate() const
 {
 	double sum = 0.0;
+	int cellCounter = 0;
 	bool hasNumericParameters = true;
 	for (int i = 0; i < lengthOfArgs; i++)
 	{
@@ -54,7 +42,7 @@ double SumFormula::calculate() const
 				char leftCell[Utils::BUFFER_SIZE];
 				char rightCell[Utils::BUFFER_SIZE];
 				Utils::splitValuesByDelimiter(currentArg.getString(), leftCell, rightCell, ':');
-				sum += evaluateRange(leftCell, rightCell, hasNumericParameters);
+				sum += evaluateRange(leftCell, rightCell, hasNumericParameters, cellCounter);
 			}
 			else {
 				int yCoordinate = args[i][0] - 'A';
@@ -64,6 +52,7 @@ double SumFormula::calculate() const
 						hasNumericParameters = false;
 					}
 					sum += target->evaluate();
+					cellCounter++;
 				}
 			}
 		}
@@ -77,10 +66,24 @@ double SumFormula::calculate() const
 	if (!hasNumericParameters || lengthOfArgs == 0) {
 		return -1;
 	}
-	return sum;
+	return sum / cellCounter;
 }
 
-const char* SumFormula::evaluate() const
+const char* AverageFormula::evaluate() const
 {
-	return "";
+    return "";
+}
+
+AverageFormula::AverageFormula(char** args, int length)
+{
+    this->args = args;
+    this->lengthOfArgs = length;
+}
+
+AverageFormula::~AverageFormula()
+{
+	for (int i = 0; i < this->lengthOfArgs; i++) {
+		delete[] args[i];
+	}
+	delete[] args;
 }

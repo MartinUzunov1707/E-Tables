@@ -10,5 +10,6 @@ public:
 	double calculate() const override;
 	const char* evaluate() const override;
 	SumFormula(char** args, int length);
+	~SumFormula();
 };
 
