@@ -4,6 +4,10 @@
 #include "SumFormula.h"
 #include "AverageFormula.h"
 #include "MinFormula.h"
+#include "MaxFormula.h"
+#include "LenFormula.h"
+//#include "ConcatFormula.h"
+//#include "SubStringFormula.h"
 
 EqualsCommand::EqualsCommand(Cell* target, char* args)
 {
@@ -26,16 +30,16 @@ Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
 		return new MinFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=MAX") == 0) {
-
+		return new MaxFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=LEN") == 0) {
-
+		return new LenFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=CONCAT") == 0) {
-
+		//return new ConcatFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=SUBSTR") == 0) {
-
+		//return new SubStringFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 }
 

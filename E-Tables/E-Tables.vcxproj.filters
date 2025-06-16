@@ -78,6 +78,9 @@
     <ClCompile Include="MaxFormula.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LenFormula.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -141,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MaxFormula.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LenFormula.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

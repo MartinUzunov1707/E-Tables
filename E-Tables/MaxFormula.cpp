@@ -62,7 +62,7 @@ double MaxFormula::calculate() const
 
 const char* MaxFormula::evaluate() const
 {
-    return nullptr;
+    return "";
 }
 
 MaxFormula::MaxFormula(char** args, int length)
