@@ -93,6 +93,16 @@ Table::Table()
 
 Table::Table(MyString configFileName, MyString fileName) : cfg(configFileName.getString())
 {
+	table = new Cell * *[cfg.getMaxRows()];
+	for (int c = 0; c < cfg.getMaxRows();c++) {
+		table[c] = new Cell * [cfg.getMaxCols()];
+	}
+
+	for (int i = 0; i < cfg.getMaxRows();i++) {
+		for (int a = 0; a < cfg.getMaxCols(); a++) {
+			table[i][a] = new NullCell(a, i + 'A');
+		}
+	}
 	readTableFromFile(fileName);
 }
 
@@ -128,12 +138,6 @@ void Table::readTableFromFile(MyString fileName)
 	this->currentCol = maxColInt;
 	this->currentRow = maxRowInt;
 	/*this->table = new Cell*[this->currentRow];*/
-
-	table = new Cell * *[currentRow] {0};
-	for (int a = 0; a < currentRow;a++) {
-		table[a] = new Cell * [currentCol];
-	}
-
 	for (int i = 0; i < this->currentRow;i++) {
 		ifs.getline(buffer, Utils::BUFFER_SIZE);
 		assignValuesFromRow(buffer,i, this->table);

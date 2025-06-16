@@ -59,6 +59,9 @@ void EqualsCommand::execute()
 	char formulaArgs[Utils::BUFFER_SIZE];
 	Utils::splitValuesByDelimiter(arg, formulaType, formulaArgs, '(');
 	MyString str = arg;
+	if (str.contains(')')) {
+		throw std::invalid_argument("Invalid Command syntax!");
+	}
 	bool hasDelimiter = str.contains('(');
 	MyString errorMessage = "";
 	if (!hasDelimiter) {

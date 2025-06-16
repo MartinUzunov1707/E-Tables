@@ -17,10 +17,10 @@ void InsertCommand::execute()
 	if (Utils::validateCellCoordinates(this->target->getXValue(),this->target->getYValue()-'A',Engine::getTable().getConfig().getMaxCols(), Engine::getTable().getConfig().getMaxRows()))
 	{
 		// Update the current column and row if necessary
-		if (target->getXValue() > Engine::getTable().getCurrentCol()) {
+		if (target->getXValue() > Engine::getTable().getCurrentCol() && Engine::getTable().getCurrentCol() <= Engine::getTable().getConfig().getMaxCols()) {
 			Engine::getTable().setCurrentCol(target->getXValue());
 		}
-		if (target->getYValue() - 'A' > Engine::getTable().getCurrentRow()) {
+		if (target->getYValue() - 'A' > Engine::getTable().getCurrentRow() && Engine::getTable().getCurrentRow() <= Engine::getTable().getConfig().getMaxRows()) {
 			Engine::getTable().setCurrentRow(target->getYValue() - 'A');
 		}
 		int xCoord = target->getXValue();
