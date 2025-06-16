@@ -139,6 +139,7 @@
     <ClCompile Include="ErrorCell.cpp" />
     <ClCompile Include="Formula.cpp" />
     <ClCompile Include="InsertCommand.cpp" />
+    <ClCompile Include="MaxFormula.cpp" />
     <ClCompile Include="MinFormula.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="NullCell.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="ErrorCell.h" />
     <ClInclude Include="Formula.h" />
     <ClInclude Include="InsertCommand.h" />
+    <ClInclude Include="MaxFormula.h" />
     <ClInclude Include="MinFormula.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="NullCell.h" />
