@@ -29,10 +29,11 @@ double MinFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumer
 	return min;
 }
 
-double MinFormula::calculate() const
+double MinFormula::calculate(MyString& errorMessage) const
 {
 	if (lengthOfArgs > 1) {
-		throw std::invalid_argument("Argument of MIN function should only be a single range!");
+		errorMessage = "Argument of MIN function should only be a single range!";
+		return -1;
 	}
 	double min = INT_MAX;
 	bool hasNumericParameters = true;
@@ -47,14 +48,17 @@ double MinFormula::calculate() const
 			min = evaluateRange(leftCell, rightCell, hasNumericParameters);
 		}
 		else {
-			throw std::invalid_argument("Argument of MIN function should only be a range!");
+			errorMessage = "Argument of MIN function should only be a range of numerical cells!";
+			return -1;
 		}
 	}
 	else {
-		throw std::invalid_argument("Argument of MIN function should only be a range!");
+		errorMessage = "Argument of MIN function should only be a range of numerical cells!";
+		return -1;
 	}
 
 	if (!hasNumericParameters || lengthOfArgs == 0) {
+		errorMessage = "Argument of MIN function should only be a range of numerical cells!";
 		return -1;
 	}
 	return min;

@@ -40,7 +40,7 @@ SumFormula::~SumFormula()
 	delete[] args;
 }
 
-double SumFormula::calculate() const
+double SumFormula::calculate(MyString& errorMessage) const
 {
 	double sum = 0.0;
 	bool hasNumericParameters = true;
@@ -77,6 +77,7 @@ double SumFormula::calculate() const
 
 		}
 		if (!hasNumericParameters || lengthOfArgs == 0) {
+			errorMessage = "Parameters of SUM function should be cells with numerical values!";
 			return -1;
 		}
 		return sum;

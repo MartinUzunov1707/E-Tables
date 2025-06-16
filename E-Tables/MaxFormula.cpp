@@ -29,10 +29,11 @@ double MaxFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumer
 	return max;
 }
 
-double MaxFormula::calculate() const
+double MaxFormula::calculate(MyString& errorMessage) const
 {
 	if (lengthOfArgs > 1) {
-		throw std::invalid_argument("Argument of MAX function should only be a single range!");
+		errorMessage = "Argument of MAX function should only be a single range!";
+		return -1;
 	}
 	double max = INT_MIN;
 	bool hasNumericParameters = true;
@@ -47,11 +48,13 @@ double MaxFormula::calculate() const
 			max = evaluateRange(leftCell, rightCell, hasNumericParameters);
 		}
 		else {
-			throw std::invalid_argument("Argument of MAX function should only be a range!");
+			errorMessage = "Argument of MAX function should only be a range!";
+			return -1;
 		}
 	}
 	else {
-		throw std::invalid_argument("Argument of MAX function should only be a range!");
+		errorMessage = "Argument of MAX function should only be a range!";
+		return -1;
 	}
 
 	if (!hasNumericParameters || lengthOfArgs == 0) {

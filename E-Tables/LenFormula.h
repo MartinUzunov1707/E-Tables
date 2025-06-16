@@ -4,7 +4,7 @@
 class LenFormula :public Formula
 {
 public:
-	double calculate() const override;
+	double calculate(MyString& errorMessage) const override;
 	const char* evaluate() const override;
 	LenFormula(char** args, int length);
 	~LenFormula();

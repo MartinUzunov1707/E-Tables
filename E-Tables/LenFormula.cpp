@@ -1,10 +1,11 @@
 #include "LenFormula.h"
 #include "Engine.h"
 
-double LenFormula::calculate() const
+double LenFormula::calculate(MyString& errorMessage) const
 {
 	if (lengthOfArgs > 1) {
-		throw std::invalid_argument("Argument of LEN function should only be a single range!");
+		errorMessage = "Argument of LEN function should only be a single range!";
+		return -1;
 	}
 	double length = 0;
 	if (args[0][0] >= 'A' && args[0][0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
@@ -20,11 +21,13 @@ double LenFormula::calculate() const
 		}
 		else {
 			
-			throw std::invalid_argument("Argument of LEN function should be a Cell!");
+			errorMessage = "Argument of LEN function should be a Cell!";
+			return -1;
 		}
 	}
 	else {
-		throw std::invalid_argument("Argument of LEN function should only be a Cell!");
+		errorMessage = "Argument of LEN function should only be a Cell!";
+		return -1;
 	}
 }
 

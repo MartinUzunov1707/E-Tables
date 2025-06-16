@@ -53,7 +53,7 @@ void EqualsCommand::execute()
 	Utils::splitValuesByDelimiter(arg, formulaType, formulaArgs, '(');
 	MyString str = arg;
 	bool hasDelimiter = str.contains('(');
-	
+	MyString errorMessage = "";
 	if (!hasDelimiter) {
 		delete[] target;
 		//target = &Engine::getTable().getByIndex(arg[1] - 'A', arg[2] - '1');
@@ -67,7 +67,8 @@ void EqualsCommand::execute()
 		Formula* formula = formulaFactory(formulaType, formulaArgs, formulaArgsLength);
 		const char* result = formula->evaluate();
 		if (strcmp(result, "") == 0) {
-			double calcResult = formula->calculate();
+			
+			double calcResult = formula->calculate(errorMessage);
 			if (calcResult == -1) {
 				delete[] target;
 				target = new ErrorCell(xCoord, yCoord);
@@ -77,6 +78,12 @@ void EqualsCommand::execute()
 				target = new NumCell(xCoord, yCoord, calcResult);
 			}
 		}
+		else {
+			//todo
+		}
 	}
 	Engine::getTable().setPointerByIndex(xCoord, yCoord - 'A', target);
+	if (strcmp(errorMessage.getString(), "") != 0) {
+		throw std::invalid_argument(errorMessage.getString());
+	}
 }

@@ -7,7 +7,7 @@ class SumFormula :
 private:
 	double evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters) const;
 public:
-	double calculate() const override;
+	double calculate(MyString& errorMessage) const override;
 	const char* evaluate() const override;
 	SumFormula(char** args, int length);
 	~SumFormula();

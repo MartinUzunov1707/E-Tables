@@ -27,7 +27,7 @@ double AverageFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasN
 	return sum;
 }
 
-double AverageFormula::calculate() const
+double AverageFormula::calculate(MyString& errorMessage) const
 {
 	double sum = 0.0;
 	int cellCounter = 0;
@@ -67,6 +67,7 @@ double AverageFormula::calculate() const
 		}
 	}
 	if (!hasNumericParameters || lengthOfArgs == 0) {
+		errorMessage = "Parameters of AVERAGE function should be cells with numerical values!";
 		return -1;
 	}
 	return sum / cellCounter;
