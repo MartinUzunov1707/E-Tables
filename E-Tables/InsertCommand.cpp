@@ -47,7 +47,6 @@ void InsertCommand::execute()
 			else {
 				throw std::invalid_argument("Invalid argument type for insert command!");
 			}
-
 		}
 		else {
 			throw std::invalid_argument("Invalid argument type for insert command!");
