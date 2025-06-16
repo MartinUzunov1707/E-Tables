@@ -56,11 +56,14 @@ double AverageFormula::calculate() const
 				}
 			}
 		}
-		else {
+		else if(args[i][0] >= '0' && args[i][0] <= '9') {
 			double value = 0;
 			Utils::tryConvertToDouble(args[i], value);
 			sum += value;
 			hasNumericParameters = true;
+		}
+		else {
+			hasNumericParameters = false;
 		}
 	}
 	if (!hasNumericParameters || lengthOfArgs == 0) {

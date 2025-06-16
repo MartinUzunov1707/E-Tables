@@ -3,6 +3,7 @@
 #include "Formula.h"
 #include "SumFormula.h"
 #include "AverageFormula.h"
+#include "MinFormula.h"
 
 EqualsCommand::EqualsCommand(Cell* target, char* args)
 {
@@ -22,7 +23,7 @@ Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
 		return new AverageFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=MIN") == 0) {
-
+		return new MinFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=MAX") == 0) {
 

@@ -57,17 +57,28 @@ Command* Engine::commandFactory(char* cell, char* command)
 
 void Engine::run()
 {
+	MyString errorMessage = "";
 	while (true) {
 		if (Engine::table.getConfig().getClearConsoleAfterCommand()) {
 			system("cls");
 		}
 		printTable();
+		if (strcmp(errorMessage.getString(), "") != 0) {
+			std::cout << errorMessage.getString() << std::endl;
+			errorMessage = "";
+		}
 		char cell[Utils::BUFFER_SIZE];
 		char commandString[Utils::BUFFER_SIZE];
 		std::cin >> cell;
 		std::cin >> commandString;
 		Command* command = commandFactory(cell, commandString);
-		command->execute();
+		try{
+			command->execute();
+		}
+		catch (std::exception& e) {
+			errorMessage = e.what();
+			
+		}
 	}
 }
 
