@@ -73,7 +73,7 @@ void Table::copyDynamicMemory(const Table& other)
 	this->currentRow = other.currentRow;
 	this->cfg = other.cfg;
 
-	table = new Cell * *[currentRow] {0};
+	table = new Cell** [currentRow] {0};
 	for (int a = 0; a < currentRow;a++) {
 		table[a] = new Cell * [currentCol];
 	}
@@ -100,9 +100,15 @@ Table::Table(MyString configFileName) : cfg(configFileName.getString())
 {
 	this->currentCol = cfg.getInitialCols();
 	this->currentRow = cfg.getInitialRows();
-	table = new Cell * *[cfg.getMaxRows()] {0};
-	for (int a = 0; a < cfg.getMaxRows();a++) {
-		table[a] = new Cell * [cfg.getMaxCols()];
+	table = new Cell* *[cfg.getMaxRows()] {0};
+	for (int c = 0; c < cfg.getMaxRows();c++) {
+		table[c] = new Cell * [cfg.getMaxCols()];
+	}
+
+	for (int i = 0; i < cfg.getMaxRows();i++) {
+		for (int a = 0; a < cfg.getMaxCols(); a++) {
+			table[i][a] = new NullCell(i,'A' + a);
+		}
 	}
 }
 

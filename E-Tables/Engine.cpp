@@ -9,9 +9,7 @@ Table Engine::table;
 void Engine::initialize()
 {
 	std::cout << "Welcome to E-tables!\n1.Open existing table\n2.Create new table\n3.Exit" << std::endl;
-	char buffer[Utils::BUFFER_SIZE];
 	char command[Utils::BUFFER_SIZE];
-	char param1[Utils::BUFFER_SIZE];
 	std::cin >> command;
 	//Utils::splitValuesByDelimiter(buffer, command, param1, ' ');
 	while (true) {
@@ -21,10 +19,12 @@ void Engine::initialize()
 			std::cin >> tableName;
 			std::cin >> configName;
 			//Utils::splitValuesByDelimiter(param1, tableName, configName, ' ');
-			Engine::table  = Table(configName, tableName);
+			Engine::table = Table(configName, tableName);
 			break;
 		}
 		else if (strcmp(command, "new") == 0) {
+			char param1[Utils::BUFFER_SIZE];
+			std::cin >> param1;
 			Engine::table = Table(param1);
 			break;
 		}

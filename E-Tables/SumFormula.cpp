@@ -4,20 +4,18 @@
 double SumFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters) const
 {
 	double sum = 0.0;
-	if (rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
-		MyString leftCellVal = leftCell;
-		MyString rightCellVal = rightCell;
-		int rightYCoordinate = 0;
-		int leftYCoordinate = 0;
-		Utils::tryConvertToInt(leftCellVal.substr(1, leftCellVal.getLength() - 1).getString(), leftYCoordinate);
-		Utils::tryConvertToInt(rightCellVal.substr(1, rightCellVal.getLength() - 1).getString(), rightYCoordinate);
-		int rowDiff = rightCell[0] - leftCell[0], colDiff = rightYCoordinate - leftYCoordinate;
+	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A'
+		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+		int leftYCoordinate = leftCell[0] - 'A', leftXCoordinate = leftCell[1] - '1';
+		int rightYCoordinate = rightCell[0] - 'A', rightXCoordinate = rightCell[1] - '1';
+		
+		int colDiff = rightCell[1] - leftCell[1], rowDiff = rightYCoordinate - leftYCoordinate;
 		if (leftYCoordinate >= 0 && leftYCoordinate < Engine::getTable().getConfig().getMaxCols()
 			&& rightYCoordinate >= 0 && rightYCoordinate < Engine::getTable().getConfig().getMaxCols()) {
-			for (int i = 0; i < rowDiff; i++) {
-				for (int a = 0; a < colDiff; a++) {
-					Cell* target = &Engine::getTable().getByIndex(i, a);
-					if (target->toString()[0] == '"' || strcmp(target->toString(), "") == 0) {
+			for (int i = 0; i <= rowDiff; i++) {
+				for (int a = 0; a <=  colDiff; a++) {
+					Cell* target = &Engine::getTable().getByIndex(a + leftXCoordinate, i + leftYCoordinate);
+					if (target->toString()[0] == '"' || target->toString()[0] == '#' || strcmp(target->toString(), "") == 0) {
 						hasNumericParameters = false;
 					}
 					sum += target->evaluate();

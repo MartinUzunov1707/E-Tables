@@ -7,5 +7,6 @@ protected :
 	char* arg;
 public:
 	virtual void execute() = 0;
+	virtual ~Command() = default;
 };
 
