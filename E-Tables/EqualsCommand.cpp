@@ -8,6 +8,7 @@
 #include "LenFormula.h"
 #include "ConcatFormula.h"
 #include "SubStringFormula.h"
+#include "CountFormula.h"
 
 EqualsCommand::EqualsCommand(Cell* target, char* args)
 {
@@ -40,6 +41,12 @@ Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
 	}
 	else if (strcmp(formulaType, "=SUBSTR") == 0) {
 		return new SubStringFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
+	}
+	else if (strcmp(formulaType, "=COUNT") == 0) {
+		return new CountFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
+	}
+	else{
+		throw std::invalid_argument("Command does not exist!");
 	}
 }
 

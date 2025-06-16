@@ -87,6 +87,9 @@
     <ClCompile Include="SubStringFormula.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CountFormula.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -159,6 +162,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SubStringFormula.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CountFormula.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

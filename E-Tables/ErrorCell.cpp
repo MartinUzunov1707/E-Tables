@@ -8,7 +8,7 @@ ErrorCell::ErrorCell(int x, char y)
 
 double ErrorCell::evaluate()
 {
-	return 0.0;
+	return -1;
 }
 
 const char* ErrorCell::toString() const
