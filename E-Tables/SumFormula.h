@@ -8,7 +8,7 @@ private:
 	double evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters) const;
 public:
 	double calculate(MyString& errorMessage) const override;
-	const char* evaluate() const override;
+	void evaluate(MyString& errorMessage, MyString& result) const override;
 	SumFormula(char** args, int length);
 	~SumFormula();
 };

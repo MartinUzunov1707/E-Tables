@@ -1,7 +1,6 @@
 #pragma once
 #include "Formula.h"
-
-class MaxFormula :
+class ConcatFormula :
     public Formula
 {
 private:
@@ -9,8 +8,7 @@ private:
 public:
 	double calculate(MyString& errorMessage) const override;
 	void evaluate(MyString& errorMessage, MyString& result) const override;
-	MaxFormula(char** args, int length);
-	~MaxFormula();
+	ConcatFormula(char** args, int length);
+	~ConcatFormula();
 };
-
 

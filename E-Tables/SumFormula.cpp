@@ -4,8 +4,8 @@
 double SumFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters) const
 {
 	double sum = 0.0;
-	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A'
-		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() + 'A'
+		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() + 'A') {
 		int leftYCoordinate = leftCell[0] - 'A', leftXCoordinate = leftCell[1] - '1';
 		int rightYCoordinate = rightCell[0] - 'A', rightXCoordinate = rightCell[1] - '1';
 		
@@ -46,7 +46,7 @@ double SumFormula::calculate(MyString& errorMessage) const
 	bool hasNumericParameters = true;
 	for (int i = 0; i < lengthOfArgs; i++)
 	{
-		if (args[i][0] >= 'A' && args[i][0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+		if (args[i][0] >= 'A' && args[i][0] <= Engine::getTable().getConfig().getMaxRows() + 'A') {
 			int xCoordinate = args[i][1] - '1';
 			MyString currentArg = args[i];
 			int argLength = currentArg.getLength();
@@ -84,7 +84,9 @@ double SumFormula::calculate(MyString& errorMessage) const
 	}
 }
 
-const char* SumFormula::evaluate() const
+void SumFormula::evaluate(MyString& errorMessage, MyString& result) const
 {
-	return "";
+	result = "";
 }
+
+

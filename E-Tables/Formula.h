@@ -7,7 +7,7 @@ protected:
 	int lengthOfArgs;
 public:
 	virtual double calculate(MyString& errorMessage) const = 0;
-	virtual const char* evaluate() const = 0;
+	virtual void evaluate(MyString& errorMessage, MyString& result) const = 0;
 	virtual ~Formula() = default;
 };
 

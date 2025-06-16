@@ -4,8 +4,8 @@
 double AverageFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters,int& cellCounter) const
 {
 	double sum = 0.0;
-	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A'
-		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() + 'A'
+		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() + 'A') {
 		int leftYCoordinate = leftCell[0] - 'A', leftXCoordinate = leftCell[1] - '1';
 		int rightYCoordinate = rightCell[0] - 'A', rightXCoordinate = rightCell[1] - '1';
 
@@ -34,7 +34,7 @@ double AverageFormula::calculate(MyString& errorMessage) const
 	bool hasNumericParameters = true;
 	for (int i = 0; i < lengthOfArgs; i++)
 	{
-		if (args[i][0] >= 'A' && args[i][0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+		if (args[i][0] >= 'A' && args[i][0] <= Engine::getTable().getConfig().getMaxRows() + 'A') {
 			int xCoordinate = args[i][1] - '1';
 			MyString currentArg = args[i];
 			int argLength = currentArg.getLength();
@@ -73,9 +73,9 @@ double AverageFormula::calculate(MyString& errorMessage) const
 	return sum / cellCounter;
 }
 
-const char* AverageFormula::evaluate() const
+void AverageFormula::evaluate(MyString& errorMessage, MyString& result) const
 {
-    return "";
+	result = "";
 }
 
 AverageFormula::AverageFormula(char** args, int length)

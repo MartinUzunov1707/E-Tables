@@ -69,7 +69,7 @@ void Engine::run()
 		}
 		char cell[Utils::BUFFER_SIZE];
 		char commandString[Utils::BUFFER_SIZE];
-		std::cin >> cell;
+ 		std::cin >> cell;
 		std::cin >> commandString;
 		Command* command = commandFactory(cell, commandString);
 		try{

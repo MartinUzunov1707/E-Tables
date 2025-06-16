@@ -8,7 +8,7 @@ double LenFormula::calculate(MyString& errorMessage) const
 		return -1;
 	}
 	double length = 0;
-	if (args[0][0] >= 'A' && args[0][0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+	if (args[0][0] >= 'A' && args[0][0] <= Engine::getTable().getConfig().getMaxRows() + 'A') {
 		int xCoordinate = args[0][1] - '1';
 		int yCoordinate = args[0][0] - 'A';
 		MyString currentArg = args[0];
@@ -31,9 +31,9 @@ double LenFormula::calculate(MyString& errorMessage) const
 	}
 }
 
-const char* LenFormula::evaluate() const
+void LenFormula::evaluate(MyString& errorMessage, MyString& result) const
 {
-    return "";
+    result = "";
 }
 
 LenFormula::LenFormula(char** args, int length)

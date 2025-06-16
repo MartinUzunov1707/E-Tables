@@ -4,8 +4,8 @@
 double MinFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumericParameters) const
 {
 	double min = INT_MAX;
-	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A'
-		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+	if (leftCell[0] >= 'A' && leftCell[0] <= Engine::getTable().getConfig().getMaxRows() + 'A'
+		&& rightCell[0] >= 'A' && rightCell[0] <= Engine::getTable().getConfig().getMaxRows() + 'A') {
 		int leftYCoordinate = leftCell[0] - 'A', leftXCoordinate = leftCell[1] - '1';
 		int rightYCoordinate = rightCell[0] - 'A', rightXCoordinate = rightCell[1] - '1';
 		int colDiff = rightCell[1] - leftCell[1], rowDiff = rightYCoordinate - leftYCoordinate;
@@ -37,7 +37,7 @@ double MinFormula::calculate(MyString& errorMessage) const
 	}
 	double min = INT_MAX;
 	bool hasNumericParameters = true;
-	if (args[0][0] >= 'A' && args[0][0] <= Engine::getTable().getConfig().getMaxRows() - 'A') {
+	if (args[0][0] >= 'A' && args[0][0] <= Engine::getTable().getConfig().getMaxRows() + 'A') {
 		int xCoordinate = args[0][1] - '1';
 		MyString currentArg = args[0];
 		int argLength = currentArg.getLength();
@@ -64,9 +64,9 @@ double MinFormula::calculate(MyString& errorMessage) const
 	return min;
 }
 
-const char* MinFormula::evaluate() const
+void MinFormula::evaluate(MyString& errorMessage, MyString& result) const
 {
-    return "";
+    result = "";
 }
 
 MinFormula::MinFormula(char** args, int length)

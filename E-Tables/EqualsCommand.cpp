@@ -6,7 +6,7 @@
 #include "MinFormula.h"
 #include "MaxFormula.h"
 #include "LenFormula.h"
-//#include "ConcatFormula.h"
+#include "ConcatFormula.h"
 //#include "SubStringFormula.h"
 
 EqualsCommand::EqualsCommand(Cell* target, char* args)
@@ -36,7 +36,7 @@ Formula* formulaFactory(char* formulaType, char* formulaArgs, int argsLength) {
 		return new LenFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=CONCAT") == 0) {
-		//return new ConcatFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
+		return new ConcatFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
 	}
 	else if (strcmp(formulaType, "=SUBSTR") == 0) {
 		//return new SubStringFormula(Utils::splitValuesByDelimiter(formulaArgs, ','), argsLength);
@@ -65,9 +65,9 @@ void EqualsCommand::execute()
 		formulaArgs[formulaArgsLength - 1] = '\0';
 		formulaArgsLength = Utils::countDelimiter(formulaArgs,',') + 1;
 		Formula* formula = formulaFactory(formulaType, formulaArgs, formulaArgsLength);
-		const char* result = formula->evaluate();
-		if (strcmp(result, "") == 0) {
-			
+		MyString result = "";
+		formula->evaluate(errorMessage,result);
+		if (strcmp(result.getString(), "") == 0) {
 			double calcResult = formula->calculate(errorMessage);
 			if (calcResult == -1) {
 				delete[] target;
@@ -79,7 +79,14 @@ void EqualsCommand::execute()
 			}
 		}
 		else {
-			//todo
+			if (strcmp(result.getString(), "\n") == 0) {
+				delete[] target;
+				target = new ErrorCell(xCoord, yCoord);
+			}
+			else {
+				delete[] target;
+				target = new StringCell(xCoord, yCoord, result);
+			}
 		}
 	}
 	Engine::getTable().setPointerByIndex(xCoord, yCoord - 'A', target);

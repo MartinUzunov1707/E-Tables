@@ -1,5 +1,6 @@
 #include "MyString.h"
 #include <stdexcept>
+#pragma warning(disable : 4996)
 
 void MyString::copyDynamicMemory(const MyString& other)
 {
@@ -69,7 +70,7 @@ MyString& MyString::operator=(const MyString& other)
 
 MyString& MyString::append(char* other, int length)
 {
-	char* temp = new char[length + this->length - 1];
+	char* temp = new char[length + this->length];
 	int i = 0;
 	while(i < this->length) {
 		if (this->data[i] == '\0') {
@@ -83,10 +84,11 @@ MyString& MyString::append(char* other, int length)
 		i++;
 	}
 
-	free();
-	this->length += length - 1;
-	this->data = temp;
-
+	delete[] data;
+	this->length += length;
+	this->data = new char[this->length];
+	strcpy(this->data, temp);
+	this->data[this->length - 1] = '\0';
 	return *this;
 }
 
@@ -121,13 +123,32 @@ bool MyString::contains(char symbol) const
 MyString& MyString::append(const char* other)
 {
 	int length = getCharLength(other);
-	this->append((char*)other, length);
+	char* temp = new char[length + this->length - 1];
+	int i = 0;
+	while (i < this->length) {
+		if (this->data[i] == '\0') {
+			break;
+		}
+		temp[i] = this->data[i];
+		i++;
+	}
+	for (int a = 0; a < length; a++) {
+		temp[i] = other[a];
+		i++;
+	}
+
+	delete[] data;
+	
+	this->length += length - 1;
+	this->data = new char[this->length];
+	strcpy(this->data, temp);
+	this->data[this->length - 1] = '\0';
 	return *this;
 }
 
 MyString& MyString::append(char other)
 {
-	this->append(&other, 1);
+	this->append(&other,1);
 	return *this;
 }
 

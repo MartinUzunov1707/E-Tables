@@ -131,6 +131,7 @@
     <ClCompile Include="BooleanCell.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="ConcatFormula.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DeleteCommand.cpp" />
     <ClCompile Include="E-Tables.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="BooleanCell.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="ConcatFormula.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DeleteCommand.h" />
     <ClInclude Include="Engine.h" />
