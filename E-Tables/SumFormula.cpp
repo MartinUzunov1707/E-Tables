@@ -15,7 +15,7 @@ double SumFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumer
 			for (int i = 0; i <= rowDiff; i++) {
 				for (int a = 0; a <=  colDiff; a++) {
 					Cell* target = &Engine::getTable().getByIndex(a + leftXCoordinate, i + leftYCoordinate);
-					if (target->toString()[0] == '"' || target->toString()[0] == '#' || strcmp(target->toString(), "") == 0) {
+					if (target->toString()[0] <= '0'  || target->toString()[0] >= '9') {
 						hasNumericParameters = false;
 					}
 					sum += target->evaluate();
@@ -60,7 +60,7 @@ double SumFormula::calculate(MyString& errorMessage) const
 				int yCoordinate = args[i][0] - 'A';
 				if (yCoordinate >= 0 && yCoordinate <= Engine::getTable().getConfig().getMaxCols()) {
 					Cell* target = &Engine::getTable().getByIndex(xCoordinate, yCoordinate);
-					if (target->toString()[0] == '"' || target->toString()[0] == '#' || strcmp(target->toString(), "") == 0) {
+					if (target->toString()[0] <= '0' || target->toString()[0] >= '9') {
 						hasNumericParameters = false;
 					}
 					sum += target->evaluate();
@@ -73,15 +73,14 @@ double SumFormula::calculate(MyString& errorMessage) const
 			sum += value;
 			hasNumericParameters = true;
 		}
-		else {
-
-		}
 		if (!hasNumericParameters || lengthOfArgs == 0) {
-			errorMessage = "Parameters of SUM function should be cells with numerical values!";
+			errorMessage = "Parameters of SUM function should be cells with positive numerical values!";
 			return -1;
 		}
-		return sum;
 	}
+	
+	return sum;
+
 }
 
 void SumFormula::evaluate(MyString& errorMessage, MyString& result) const

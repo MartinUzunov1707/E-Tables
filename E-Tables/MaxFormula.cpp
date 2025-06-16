@@ -16,7 +16,7 @@ double MaxFormula::evaluateRange(char* leftCell, char* rightCell, bool& hasNumer
 			for (int i = 0; i <= rowDiff; i++) {
 				for (int a = 0; a <= colDiff; a++) {
 					Cell* target = &Engine::getTable().getByIndex(a + leftXCoordinate, i + leftYCoordinate);
-					if (target->toString()[0] == '"' || target->toString()[0] == '#' || strcmp(target->toString(), "") == 0) {
+					if (target->toString()[0] <= '0' || target->toString()[0] >= '9') {
 						hasNumericParameters = false;
 					}
 					else if (target->evaluate() > max) {
