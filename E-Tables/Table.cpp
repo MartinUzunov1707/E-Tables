@@ -144,16 +144,22 @@ void Table::readTableFromFile(MyString fileName)
 	}
 }
 
-void Table::writeTableToFile(MyString fileName) const
+void Table::writeTableToFile(const char* fileName) const
 {
-	std::ofstream ofs(fileName.getString()); 
-	ofs << this->currentRow << ';' << this->currentCol << std::endl;
-	for (int i = 0; i < this->currentRow; i++) {
-		for (int a = 0; a < this->currentCol; a++) {
-			ofs << this->table[i][a]->toString() << '|';
+	std::ofstream ofs(fileName,std::ios::out); 
+	if (ofs.is_open()) {
+		ofs << this->currentRow << ';' << this->currentCol << std::endl;
+		for (int i = 0; i < this->currentRow; i++) {
+			for (int a = 0; a < this->currentCol; a++) {
+				MyString currentCellString = this->table[i][a]->toString();
+				ofs.write(currentCellString.getString(), currentCellString.getLength() - 1);
+				ofs << "|";
+			}
+			ofs << std::endl;
 		}
-		ofs << std::endl;
 	}
+	ofs.close();
+	
 }
 
 int Table::getCurrentCol() const

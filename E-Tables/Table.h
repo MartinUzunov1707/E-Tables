@@ -17,7 +17,7 @@ public:
 	Table(MyString configFileName, MyString fileName);
 	Table(MyString configFileName);
 	void readTableFromFile(MyString fileName);
-	void writeTableToFile(MyString fileName) const;
+	void writeTableToFile(const char* fileName) const;
 	Config getConfig() const;
 	int getCurrentCol() const;
 	int getCurrentRow() const;

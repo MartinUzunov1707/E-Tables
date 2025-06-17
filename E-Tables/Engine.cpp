@@ -71,13 +71,20 @@ void Engine::run()
 		char commandString[Utils::BUFFER_SIZE];
  		std::cin >> cell;
 		std::cin >> commandString;		
-		try{
-			Command* command = commandFactory(cell, commandString);
-			command->execute();
+		if (strcmp(cell, "save") == 0) {
+			Engine::getTable().writeTableToFile(commandString);
 		}
-		catch (std::exception& e) {
-			errorMessage = e.what();
-			
+		else if (strcmp(cell, "exit") == 0) {
+			exit(EXIT_SUCCESS);
+		}
+		else {
+			try {
+				Command* command = commandFactory(cell, commandString);
+				command->execute();
+			}
+			catch (std::exception& e) {
+				errorMessage = e.what();
+			}
 		}
 	}
 }
